@@ -11,7 +11,7 @@ namespace OutlookParser
     public class PstFile : IDisposable
     {
         private bool _disposed;
-        private bool _loggedOn;
+        private bool _connected;
         private Outlook.Application _application;
         private Outlook.Store _store;
 
@@ -32,7 +32,7 @@ namespace OutlookParser
                 throw new ArgumentException("A path ending with '.pst' is expected");
             }
 
-            this._loggedOn = false;
+            this._connected = false;
             this.Path = pathToFile;
         }
 
@@ -60,7 +60,7 @@ namespace OutlookParser
             {
                 if (this._application != null)
                 {
-                    this.Logoff();
+                    this.UnloadAndDisconnect();
                 }
             }
 
@@ -72,20 +72,20 @@ namespace OutlookParser
         }
         #endregion
 
-        public Outlook.Store Store
+        public Outlook.Store Store //FIXME remove external reference to Outlook namespace
         {
             get
             {
-                if(!_loggedOn || this._application == null || this._store == null)
+                if(!_connected || this._application == null || this._store == null)
                 {
-                    this.Logon();
+                    this.ConnectAndLoad();
                 }
 
                 return this._store;
             }
         }
 
-        public Outlook.Folder RootFolder
+        public Outlook.Folder RootFolder //FIXME remove external reference to Outlook namespace
         {
             get
             {
@@ -93,17 +93,17 @@ namespace OutlookParser
             }
         }
 
-        public IEnumerable<Outlook.MailItem> AllItems
+        public IEnumerable<Email> AllItems
         {
             get
             {
-                IList<Outlook.MailItem> mailItems = new List<Outlook.MailItem>();
+                IList<Email> mailItems = new List<Email>();
                 this.ExtractItems(mailItems, this.RootFolder);
                 return mailItems;
             }
         }
 
-        private void ExtractItems(IList<Outlook.MailItem> mailItems, Outlook.Folder folder)
+        private void ExtractItems(IList<Email> mailItems, Outlook.Folder folder)
         {
             if (mailItems == null)
             {
@@ -119,7 +119,10 @@ namespace OutlookParser
                 if (item is Outlook.MailItem)
                 {
                     Outlook.MailItem mailItem = item as Outlook.MailItem;
-                    mailItems.Add(mailItem);
+
+                    mailItems.Add(new Email() { 
+                        Subject = mailItem.Subject, 
+                        ReceivedTime = mailItem.ReceivedTime });
                 }
             }
 
@@ -129,7 +132,7 @@ namespace OutlookParser
             }
         }
 
-        private void Logon()
+        private void ConnectAndLoad()
         {
             this._application = new Outlook.Application();
             this._application.Session.AddStore(this.Path);
@@ -142,13 +145,13 @@ namespace OutlookParser
                 }
             }
 
-            this._loggedOn = true;
+            this._connected = true;
         }
 
-        public void Logoff()
+        public void UnloadAndDisconnect()
         {
             this._application.Session.RemoveStore(this.RootFolder); //FIXME what happens if this._store is null, or the store does not have a valid root folder?  Is a try/catch required?
-            this._loggedOn = false;
+            this._connected = false;
         }
     }
 }

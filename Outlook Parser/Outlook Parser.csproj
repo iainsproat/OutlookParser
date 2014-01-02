@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Email.cs" />
     <Compile Include="PstFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Redemption\RedemptionLoader.cs" />

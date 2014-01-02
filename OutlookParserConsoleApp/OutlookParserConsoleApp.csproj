@@ -39,13 +39,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BrightstarDB">
+      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\BrightstarDB.dll</HintPath>
+    </Reference>
+    <Reference Include="dotNetRDF">
+      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\dotNetRDF.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq">
+      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\Remotion.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="VDS.Common">
+      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\VDS.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\IController.cs" />
@@ -54,6 +66,13 @@
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\MainMenuModel.cs" />
     <Compile Include="Models\PstPathException.cs" />
+    <Compile Include="MyEntityContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyEntityContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\DataStorage.cs" />
+    <Compile Include="Services\IPersistentEmail.cs" />
     <Compile Include="Views\IView.cs" />
     <Compile Include="Views\MainMenuView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +111,16 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MyEntityContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MyEntityContext.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

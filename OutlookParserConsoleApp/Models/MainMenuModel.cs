@@ -6,21 +6,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Outlook = Microsoft.Office.Interop.Outlook; //TODO remove
-
 using OutlookParser;
+using OutlookParserConsoleApp.Services;
 
 namespace OutlookParserConsoleApp.Models
 {
     public class MainMenuModel : IModel
     {
+        private DataStorage _data;
         public event Action<string> PathToPstFilesUpdated;
+        public event Action<IEnumerable<Email>> FoundEmails;
+
+        public MainMenuModel(DataStorage storage)
+        {
+            this._data = storage;
+        }
 
         protected void RaisePathToPstFilesUpdated(string path)
         {
             if (PathToPstFilesUpdated != null)
             {
                 PathToPstFilesUpdated(path);
+            }
+        }
+
+        protected void RaiseFoundEmails(IEnumerable<Email> emails)
+        {
+            if (FoundEmails != null)
+            {
+                FoundEmails(emails);
             }
         }
 
@@ -40,22 +54,6 @@ namespace OutlookParserConsoleApp.Models
             else
             {
                 throw new PstPathException(userPath, new DirectoryNotFoundException(string.Format("A .Pst file or directory containing .Pst files was not found at the given location: '{0}'", userPath)));
-            }
-        }
-
-        public void Test()
-        {
-            Outlook.Application Application = new Outlook.Application();
-            Outlook.Stores stores = Application.Session.Stores;
-            foreach (Outlook.Store store in stores)
-            {
-                if (store.IsDataFileStore == true)
-                {
-                    Debug.WriteLine(String.Format("Store: "
-                        + store.DisplayName
-                        + "\n" + "File Path: "
-                    + store.FilePath + "\n"));
-                }
             }
         }
 
@@ -79,16 +77,23 @@ namespace OutlookParserConsoleApp.Models
         public void OpenStoreAndExtractMailItems(string userPath)
         {
             PstFile pstFile = new PstFile(userPath);
-            Console.WriteLine("Found a folder : {0}", pstFile.RootFolder.Name);
+            IEnumerable<Email> mailItems = pstFile.AllItems;
 
-            IEnumerable<Outlook.MailItem> mailItems = pstFile.AllItems;
+            pstFile.UnloadAndDisconnect();
 
-            foreach (Outlook.MailItem item in mailItems)
+            RaiseFoundEmails(mailItems);
+
+            // persist emails
+            this._data.Store(mailItems);
+            Console.WriteLine("Stored all emails");
+
+            IEnumerable<IPersistentEmail> retrievedEmails = this._data.AllEmails();
+            int count = 0;
+            foreach(IPersistentEmail email in retrievedEmails)
             {
-                Console.WriteLine("Email subject : {0}", item.Subject);
+                count++;
             }
-
-            pstFile.Logoff();
+            Console.WriteLine("Have saved {0} emails", count);
         }
     }
 }

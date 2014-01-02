@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OutlookParserConsoleApp.Controllers;
 using OutlookParserConsoleApp.Models;
 using OutlookParserConsoleApp.Views;
+using OutlookParserConsoleApp.Services;
 
 namespace OutlookParserConsoleApp
 {
@@ -17,7 +18,8 @@ namespace OutlookParserConsoleApp
         public static void Main()
         {
             Console.WriteLine("Welcome to the Outlook Parser application.");
-            MainMenuModel mainMenuModel = new MainMenuModel();
+            DataStorage data = new DataStorage();
+            MainMenuModel mainMenuModel = new MainMenuModel(data);
             MainMenuView mainMenu = new MainMenuView(mainMenuModel);
             try
             {

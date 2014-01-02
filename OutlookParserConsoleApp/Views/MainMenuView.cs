@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using OutlookParser;
 using OutlookParserConsoleApp.Models;
 using OutlookParserConsoleApp.Controllers;
 
@@ -62,11 +63,13 @@ namespace OutlookParserConsoleApp.Views
         public void Register(MainMenuModel model)
         {
             model.PathToPstFilesUpdated += this.DisplayUpdatedPathToPstFiles;
+            model.FoundEmails += this.DisplayFoundEmails;
         }
 
         public void Release(MainMenuModel model)
         {
             model.PathToPstFilesUpdated -= this.DisplayUpdatedPathToPstFiles;
+            model.FoundEmails -= this.DisplayFoundEmails;
         }
 
         #region IDisposal
@@ -136,6 +139,18 @@ namespace OutlookParserConsoleApp.Views
         public void DisplayUpdatedPathToPstFiles(string path)
         {
             Console.WriteLine("You requested that the following path is searched for .Pst files: '{0}'", path);
+        }
+
+        public void DisplayFoundEmails(IEnumerable<Email> emails)
+        {
+            int count = 0;
+            foreach (Email email in emails)
+            {
+                Console.WriteLine("Email {0}", count);
+                Console.WriteLine("\tSubject  : {0}", email.Subject);
+                Console.WriteLine("\tReceived : {0}", email.ReceivedTime);
+                count++;
+            }
         }
     }
 }
