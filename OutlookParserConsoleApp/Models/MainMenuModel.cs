@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Redemption;
+using Outlook = Microsoft.Office.Interop.Outlook; //TODO remove
 
 using OutlookParser;
 
@@ -42,6 +43,22 @@ namespace OutlookParserConsoleApp.Models
             }
         }
 
+        public void Test()
+        {
+            Outlook.Application Application = new Outlook.Application();
+            Outlook.Stores stores = Application.Session.Stores;
+            foreach (Outlook.Store store in stores)
+            {
+                if (store.IsDataFileStore == true)
+                {
+                    Debug.WriteLine(String.Format("Store: "
+                        + store.DisplayName
+                        + "\n" + "File Path: "
+                    + store.FilePath + "\n"));
+                }
+            }
+        }
+
         public void FindAndProcessIndividualPstFiles(string userPath)
         {
             string[] files = Directory.GetFiles(userPath, "*.pst", SearchOption.AllDirectories);
@@ -62,11 +79,16 @@ namespace OutlookParserConsoleApp.Models
         public void OpenStoreAndExtractMailItems(string userPath)
         {
             PstFile pstFile = new PstFile(userPath);
-            RDOPstStore store = pstFile.Store;
-            RDOFolder folder = store.IPMRootFolder;
-            Console.WriteLine("Found a folder : {0}", folder.Name);
-//            RDOFolder defaultInboxFolder = store.GetDefaultFolder(rdoDefaultFolders.olFolderInbox);
-//            Console.WriteLine("Found a default folder for inbox : {0}", defaultInboxFolder.Name);
+            Console.WriteLine("Found a folder : {0}", pstFile.RootFolder.Name);
+
+            IEnumerable<Outlook.MailItem> mailItems = pstFile.AllItems;
+
+            foreach (Outlook.MailItem item in mailItems)
+            {
+                Console.WriteLine("Email subject : {0}", item.Subject);
+            }
+
+            pstFile.Logoff();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Redemption;
+using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace OutlookParser
 {
@@ -12,8 +12,8 @@ namespace OutlookParser
     {
         private bool _disposed;
         private bool _loggedOn;
-        private RDOSession session;
-        private RDOPstStore _store;
+        private Outlook.Application _application;
+        private Outlook.Store _store;
 
         public PstFile(string pathToFile)
         {
@@ -58,26 +58,25 @@ namespace OutlookParser
 
             if (disposing)
             {
-                if (this.session != null)
+                if (this._application != null)
                 {
-                    this.session.Logoff();
-                    this._loggedOn = false;
+                    this.Logoff();
                 }
             }
 
             //release resources
-            this.session = null;
+            this._application = null;
             this._store = null;
 
             this._disposed = true;
         }
         #endregion
 
-        public RDOPstStore Store
+        public Outlook.Store Store
         {
             get
             {
-                if(!_loggedOn)
+                if(!_loggedOn || this._application == null || this._store == null)
                 {
                     this.Logon();
                 }
@@ -86,11 +85,70 @@ namespace OutlookParser
             }
         }
 
+        public Outlook.Folder RootFolder
+        {
+            get
+            {
+                return this.Store.GetRootFolder() as Outlook.Folder;
+            }
+        }
+
+        public IEnumerable<Outlook.MailItem> AllItems
+        {
+            get
+            {
+                IList<Outlook.MailItem> mailItems = new List<Outlook.MailItem>();
+                this.ExtractItems(mailItems, this.RootFolder);
+                return mailItems;
+            }
+        }
+
+        private void ExtractItems(IList<Outlook.MailItem> mailItems, Outlook.Folder folder)
+        {
+            if (mailItems == null)
+            {
+                throw new ArgumentNullException("mailItems");
+            }
+
+            Outlook.Items items = folder.Items;
+
+            int itemcount = items.Count;
+
+            foreach (object item in items)
+            {
+                if (item is Outlook.MailItem)
+                {
+                    Outlook.MailItem mailItem = item as Outlook.MailItem;
+                    mailItems.Add(mailItem);
+                }
+            }
+
+            foreach (Outlook.Folder subfolder in folder.Folders)
+            {
+                ExtractItems(mailItems, subfolder);
+            }
+        }
+
         private void Logon()
         {
-            this.session = new Redemption.RDOSession();
-//            this.session.LogonPstStore(this.Path);
+            this._application = new Outlook.Application();
+            this._application.Session.AddStore(this.Path);
+            Outlook.Stores stores = this._application.Session.Stores;
+            foreach (Outlook.Store store in stores)
+            {
+                if (store.FilePath == this.Path)
+                {
+                    this._store = store;
+                }
+            }
+
             this._loggedOn = true;
+        }
+
+        public void Logoff()
+        {
+            this._application.Session.RemoveStore(this.RootFolder); //FIXME what happens if this._store is null, or the store does not have a valid root folder?  Is a try/catch required?
+            this._loggedOn = false;
         }
     }
 }
