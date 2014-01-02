@@ -142,14 +142,15 @@ namespace OutlookParserConsoleApp.Views
         public bool RespondToMainMenuOptions()
         {
             string userInput = Console.ReadLine();
+
+            EntryPoint.Output.Indent++;
             switch(userInput.ToLowerInvariant())
             {
                 case "1":
                     this.SpawnAddAdditionalDataDialog();
                     break;
                 case "2":
-                    Console.WriteLine("You wish to use the existing data."); //TODO
-                    Console.WriteLine("Unfortunately this option is not yet available!");
+                    this.SortEmailsByDateDialog();
                     break;
                 case "3":
                     this.DeleteAllEmailsDialog();
@@ -162,17 +163,17 @@ namespace OutlookParserConsoleApp.Views
                     break;
             }
 
+            EntryPoint.Output.Indent--;
+
             return true;
         }
 
         private void SpawnAddAdditionalDataDialog()
         {
-            EntryPoint.Output.Indent++;
             var dialogModel = new AddAdditionalDataModel(this.Model.Data);
             var dialogController = new AddAdditionalDataController(dialogModel);
             var dialogView = new AddAdditionalDataView(dialogModel);
             dialogView.GetPathToPstFiles();
-            EntryPoint.Output.Indent--;
         }
 
         private void DeleteAllEmailsDialog()
@@ -188,6 +189,20 @@ namespace OutlookParserConsoleApp.Views
             else
             {
                 Console.WriteLine("You chose not to delete all the emails, and we will return to the main menu.");
+            }
+        }
+
+        public void SortEmailsByDateDialog()
+        {
+            Console.WriteLine("Sorting the emails by date.");
+            foreach(var line in this.Model.Data.AllEmails.GroupBy(email => email.ReceivedTime.Date)
+                        .Select(group => new { 
+                             Date = group.Key, 
+                             Count = group.Count() 
+                        })
+                        .OrderBy(x => x.Date))
+            {
+                Console.WriteLine("{0} {1}", line.Date, line.Count);
             }
         }
 
