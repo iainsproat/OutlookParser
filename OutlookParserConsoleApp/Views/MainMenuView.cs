@@ -150,7 +150,7 @@ namespace OutlookParserConsoleApp.Views
                     this.SpawnAddAdditionalDataDialog();
                     break;
                 case "2":
-                    this.SortEmailsByDateDialog();
+                    this.SpawnDataVisualisationView();
                     break;
                 case "3":
                     this.DeleteAllEmailsDialog();
@@ -171,9 +171,15 @@ namespace OutlookParserConsoleApp.Views
         private void SpawnAddAdditionalDataDialog()
         {
             var dialogModel = new AddAdditionalDataModel(this.Model.Data);
-            var dialogController = new AddAdditionalDataController(dialogModel);
             var dialogView = new AddAdditionalDataView(dialogModel);
-            dialogView.GetPathToPstFiles();
+            dialogView.Show();
+        }
+
+        private void SpawnDataVisualisationView()
+        {
+            var spawnedModel = new DataVisualisationModel(this.Model.AnalysisEngine);
+            var spawnedView = new DataVisualisationView(spawnedModel);
+            spawnedView.Show();
         }
 
         private void DeleteAllEmailsDialog()
@@ -192,15 +198,7 @@ namespace OutlookParserConsoleApp.Views
             }
         }
 
-        public void SortEmailsByDateDialog()
-        {
-            Console.WriteLine("Sorting the emails by date.");
-            var results = this.Controller.GetEmailDailyCountSortedByDate();
-            foreach(var line in results)
-            {
-                Console.WriteLine("{0} {1}", line.Item1, line.Item2);
-            }
-        }
+        
 
         public static bool IsUserTryingToExit(string userInput)
         {

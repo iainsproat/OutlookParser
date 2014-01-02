@@ -61,10 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AddAdditionalDataController.cs" />
+    <Compile Include="Controllers\DataVisualisationController.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\MainMenuController.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Models\AddAdditionalDataModel.cs" />
+    <Compile Include="Models\DataVisualisationModel.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\MainMenuModel.cs" />
     <Compile Include="Models\PstPathException.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Services\DataStorage.cs" />
     <Compile Include="Services\IPersistentEmail.cs" />
     <Compile Include="Views\AddAdditionalDataView.cs" />
+    <Compile Include="Views\DataVisualisationView.cs" />
     <Compile Include="Views\IView.cs" />
     <Compile Include="Views\MainMenuView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -65,7 +65,7 @@ namespace OutlookParserConsoleApp.Models
             }
         }
 
-        public void FindAndProcessIndividualPstFiles(string userPath)
+        protected void FindAndProcessIndividualPstFiles(string userPath)
         {
             string[] files = Directory.GetFiles(userPath, "*.pst", SearchOption.AllDirectories);
 
@@ -82,7 +82,7 @@ namespace OutlookParserConsoleApp.Models
             }
         }
 
-        public void OpenStoreAndExtractMailItems(string userPath)
+        protected void OpenStoreAndExtractMailItems(string userPath)
         {
             PstFile pstFile = new PstFile(userPath);
             IEnumerable<Email> mailItems = pstFile.AllItems;

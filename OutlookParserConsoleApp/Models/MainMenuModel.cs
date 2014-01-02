@@ -31,6 +31,14 @@ namespace OutlookParserConsoleApp.Models
             }
         }
 
+        public DataAnalysisEngine AnalysisEngine
+        {
+            get
+            {
+                return this._analysis;
+            }
+        }
+
         public int NumberOfExistingEmails()
         {
             return this._data.Count;
@@ -39,11 +47,6 @@ namespace OutlookParserConsoleApp.Models
         public void DeleteAllEmails()
         {
             this._data.DeleteAll();
-        }
-
-        public IEnumerable<Tuple<DateTime, int>> GetEmailDailyCountSortedByDate()
-        {
-            return this._analysis.GetEmailDailyCountSortedByDate();
         }
     }
 }

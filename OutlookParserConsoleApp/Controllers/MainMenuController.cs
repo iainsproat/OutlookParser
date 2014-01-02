@@ -30,10 +30,5 @@ namespace OutlookParserConsoleApp.Controllers
         {
             this.Model.DeleteAllEmails();
         }
-
-        public IEnumerable<Tuple<DateTime, int>> GetEmailDailyCountSortedByDate()
-        {
-            return this.Model.GetEmailDailyCountSortedByDate();
-        }
     }
 }

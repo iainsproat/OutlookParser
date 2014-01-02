@@ -102,14 +102,14 @@ namespace OutlookParserConsoleApp.Views
         #endregion
         #endregion
 
-        public void GetPathToPstFiles()
+        public void Show()
         {
-            Console.WriteLine("Please provide a path to a folder containing .pst files:");
+            Console.WriteLine("Please type the path to a folder containing .pst files to import:");
             string pathToPstFiles = Console.ReadLine();
             if (MainMenuView.IsUserTryingToExit(pathToPstFiles))
             {
                 Console.WriteLine("Returning to the main menu.");
-                return; //FIXME assumes that this is the function called by the caller.
+                return;
             }
 
             try
@@ -121,7 +121,7 @@ namespace OutlookParserConsoleApp.Views
                 Console.WriteLine("Unfortunately we could not work with the provided path of : {0}", ppe.PstPath);
                 Console.WriteLine(ppe.Message);
                 Console.WriteLine("Please try again, or type 'e' to return to the main menu.");
-                this.GetPathToPstFiles();
+                this.Show();
             }
         }
 
