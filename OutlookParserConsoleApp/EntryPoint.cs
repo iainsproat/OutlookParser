@@ -14,10 +14,11 @@ namespace OutlookParserConsoleApp
 {
     public class EntryPoint
     {
+        public static IndentingConsole Output = new IndentingConsole();
+
         [STAThread]
         public static void Main()
         {
-            Console.WriteLine("Welcome to the Outlook Parser application.");
             DataStorage data = new DataStorage();
             MainMenuModel mainMenuModel = new MainMenuModel(data);
             MainMenuView mainMenu = new MainMenuView(mainMenuModel);

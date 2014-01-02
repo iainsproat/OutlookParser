@@ -13,8 +13,6 @@ namespace OutlookParserConsoleApp.Views
     public class AddAdditionalDataView : IView<AddAdditionalDataController, AddAdditionalDataModel>, IDisposable
     {
         private bool _disposed;
-        private const string exit = "e";
-        private const string exit2 = "exit";
         protected AddAdditionalDataModel mdl;
         protected AddAdditionalDataController contrlr;
 
@@ -110,9 +108,10 @@ namespace OutlookParserConsoleApp.Views
             string pathToPstFiles = Console.ReadLine();
             if (MainMenuView.IsUserTryingToExit(pathToPstFiles))
             {
-                Console.WriteLine("The application has been safely exited.");
-                return; //FIXME 
+                Console.WriteLine("Returning to the main menu.");
+                return; //FIXME assumes that this is the function called by the caller.
             }
+
             try
             {
                 this.Controller.PathToPstFilesEntered(pathToPstFiles);
@@ -126,12 +125,12 @@ namespace OutlookParserConsoleApp.Views
             }
         }
 
-        public void DisplayUpdatedPathToPstFiles(string path)
+        protected void DisplayUpdatedPathToPstFiles(string path)
         {
             Console.WriteLine("You requested that the following path is searched for .Pst files: '{0}'", path);
         }
 
-        public void DisplayFoundEmails(IEnumerable<Email> emails)
+        protected void DisplayFoundEmails(IEnumerable<Email> emails)
         {
             int count = 0;
             foreach (Email email in emails)

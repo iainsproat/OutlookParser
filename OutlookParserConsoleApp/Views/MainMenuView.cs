@@ -103,7 +103,9 @@ namespace OutlookParserConsoleApp.Views
 
         public void Run()
         {
+            Console.WriteLine("Welcome to the email analyser and visualiser");
             Console.WriteLine("This application currently only reads Pst files.");
+            EntryPoint.Output.Indent++;
             while (true)
             {
                 this.DisplayMainMenuWelcome();
@@ -114,12 +116,13 @@ namespace OutlookParserConsoleApp.Views
                 }
             }
 
+            EntryPoint.Output.Indent--;
             Console.WriteLine("Exiting application.");
         }
 
         public void DisplayMainMenuWelcome()
         {
-            Console.WriteLine("Welcome to the main menu of the Email parsing and visualisation application.");
+            Console.WriteLine("---Main Menu---");
             Console.WriteLine("{0} emails already exist in the database.", this.Model.NumberOfExistingEmails());
         }
 
@@ -128,9 +131,14 @@ namespace OutlookParserConsoleApp.Views
             Console.WriteLine("Press one of the following keys to choose from the below options:");
             Console.WriteLine("1 = Add additional data.");
             Console.WriteLine("2 = Work with the existing data.");
+            Console.WriteLine("3 = Delete all data.");
             Console.WriteLine("e = Exit the application.");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>False if the user wishes to exit, otherwise true</returns>
         public bool RespondToMainMenuOptions()
         {
             string userInput = Console.ReadLine();
@@ -140,12 +148,19 @@ namespace OutlookParserConsoleApp.Views
                     this.SpawnAddAdditionalDataDialog();
                     break;
                 case "2":
-                    Console.WriteLine("You wish to use the existing data.");
-                    Console.WriteLine("Unfortunately this option is not yet implemented at this time!");
+                    Console.WriteLine("You wish to use the existing data."); //TODO
+                    Console.WriteLine("Unfortunately this option is not yet available!");
+                    break;
+                case "3":
+                    Console.WriteLine("You wish to delete the existing data."); //TODO
+                    Console.WriteLine("Unfortunately this option is not yet available!");
                     break;
                 case "e":
                 case "exit":
                     return false; //user wishes to exit
+                default:
+                    Console.WriteLine("The option was not recognised, please try again!");
+                    break;
             }
 
             return true;
@@ -153,10 +168,12 @@ namespace OutlookParserConsoleApp.Views
 
         private void SpawnAddAdditionalDataDialog()
         {
+            EntryPoint.Output.Indent++;
             var dialogModel = new AddAdditionalDataModel(this.Model.Data);
             var dialogController = new AddAdditionalDataController(dialogModel);
             var dialogView = new AddAdditionalDataView(dialogModel);
             dialogView.GetPathToPstFiles();
+            EntryPoint.Output.Indent--;
         }
 
         public static bool IsUserTryingToExit(string userInput)
