@@ -60,7 +60,7 @@ namespace OutlookParserConsoleApp.Services
             }
         }
 
-        public IEnumerable<IPersistentEmail> GetAllEmails(MyEntityContext ctx)
+        protected IEnumerable<IPersistentEmail> GetAllEmails(MyEntityContext ctx)
         {
             return ctx.PersistentEmails;
         }
