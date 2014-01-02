@@ -12,25 +12,45 @@ namespace OutlookParserConsoleApp.Services
     {
         const string connectionString = "type=embedded;storesdirectory=.\\;storename=Emails";
 
-        public void Store(IEnumerable<Email> emails)
+        protected MyEntityContext NewContext()
         {
-            var ctx = new MyEntityContext(connectionString);
+            return new MyEntityContext(connectionString);
+        }
 
+        public int Store(IEnumerable<Email> emails)
+        {
+            var ctx = this.NewContext();
+
+            int count = 0;
             foreach (Email email in emails)
             {
                 IPersistentEmail persistentEmail = ctx.PersistentEmails.Create();
                 persistentEmail.Subject = email.Subject;
                 persistentEmail.ReceivedTime = email.ReceivedTime;
+                count++;
             }
 
             ctx.SaveChanges();
+            return count;
         }
 
-        public IEnumerable<IPersistentEmail> AllEmails()
+        public IEnumerable<IPersistentEmail> AllEmails
         {
-            var ctx = new MyEntityContext(connectionString);
+            get
+            {
+                var ctx = this.NewContext();
 
-            return ctx.PersistentEmails;
+                return ctx.PersistentEmails;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                var ctx = this.NewContext();
+                return ctx.PersistentEmails.Count();
+            }
         }
     }
 }
