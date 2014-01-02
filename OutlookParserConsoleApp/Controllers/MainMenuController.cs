@@ -24,10 +24,5 @@ namespace OutlookParserConsoleApp.Controllers
                 return this.mdl;
             }
         }
-
-        public void PathToPstFilesEntered(string userPath)
-        {
-            this.Model.ParsePathToPstFiles(userPath);
-        }
     }
 }

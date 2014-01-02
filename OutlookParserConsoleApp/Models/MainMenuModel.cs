@@ -13,87 +13,24 @@ namespace OutlookParserConsoleApp.Models
 {
     public class MainMenuModel : IModel
     {
-        private DataStorage _data;
-        public event Action<string> PathToPstFilesUpdated;
-        public event Action<IEnumerable<Email>> FoundEmails;
+        private readonly DataStorage _data;
 
         public MainMenuModel(DataStorage storage)
         {
             this._data = storage;
         }
 
-        protected void RaisePathToPstFilesUpdated(string path)
+        public DataStorage Data
         {
-            if (PathToPstFilesUpdated != null)
+            get
             {
-                PathToPstFilesUpdated(path);
+                return this._data;
             }
         }
 
-        protected void RaiseFoundEmails(IEnumerable<Email> emails)
+        public int NumberOfExistingEmails()
         {
-            if (FoundEmails != null)
-            {
-                FoundEmails(emails);
-            }
-        }
-
-        public void ParsePathToPstFiles(string userPath)
-        {
-            if (File.Exists(userPath))
-            {
-                RaisePathToPstFilesUpdated(userPath);
-                Console.WriteLine("You provided a path to a single .Pst file.");
-                OpenStoreAndExtractMailItems(userPath);
-            }
-            else if(Directory.Exists(userPath))
-            {
-                RaisePathToPstFilesUpdated(userPath);
-                FindAndProcessIndividualPstFiles(userPath);
-            }
-            else
-            {
-                throw new PstPathException(userPath, new DirectoryNotFoundException(string.Format("A .Pst file or directory containing .Pst files was not found at the given location: '{0}'", userPath)));
-            }
-        }
-
-        public void FindAndProcessIndividualPstFiles(string userPath)
-        {
-            string[] files = Directory.GetFiles(userPath, "*.pst", SearchOption.AllDirectories);
-
-            if(files == null || files.Length < 1)
-            {
-                throw new PstPathException(userPath, string.Format("No .pst files were found at the given path: {0}", userPath));
-            }
-
-            Console.WriteLine("Found the following .pst files:");
-            foreach(string filePath in files)
-            {
-                Console.WriteLine(filePath);
-                this.OpenStoreAndExtractMailItems(filePath);
-            }
-        }
-
-        public void OpenStoreAndExtractMailItems(string userPath)
-        {
-            PstFile pstFile = new PstFile(userPath);
-            IEnumerable<Email> mailItems = pstFile.AllItems;
-
-            pstFile.UnloadAndDisconnect();
-
-            RaiseFoundEmails(mailItems);
-
-            // persist emails
-            this._data.Store(mailItems);
-            Console.WriteLine("Stored all emails");
-
-            IEnumerable<IPersistentEmail> retrievedEmails = this._data.AllEmails();
-            int count = 0;
-            foreach(IPersistentEmail email in retrievedEmails)
-            {
-                count++;
-            }
-            Console.WriteLine("Have saved {0} emails", count);
+            return this._data.Count;
         }
     }
 }

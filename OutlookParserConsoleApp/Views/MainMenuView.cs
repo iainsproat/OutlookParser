@@ -13,8 +13,6 @@ namespace OutlookParserConsoleApp.Views
     public class MainMenuView : IView<MainMenuController, MainMenuModel>, IDisposable
     {
         private bool _disposed;
-        private const string exit = "e";
-        private const string exit2 = "exit";
         protected MainMenuModel mdl;
         protected MainMenuController contrlr;
 
@@ -25,6 +23,7 @@ namespace OutlookParserConsoleApp.Views
             this.Register(model);
         }
 
+        #region MVC boilerplate
         public MainMenuModel Model
         {
             get
@@ -62,14 +61,12 @@ namespace OutlookParserConsoleApp.Views
 
         public void Register(MainMenuModel model)
         {
-            model.PathToPstFilesUpdated += this.DisplayUpdatedPathToPstFiles;
-            model.FoundEmails += this.DisplayFoundEmails;
+            // empty
         }
 
         public void Release(MainMenuModel model)
         {
-            model.PathToPstFilesUpdated -= this.DisplayUpdatedPathToPstFiles;
-            model.FoundEmails -= this.DisplayFoundEmails;
+            // empty
         }
 
         #region IDisposal
@@ -102,55 +99,76 @@ namespace OutlookParserConsoleApp.Views
         }
         #endregion
 
+        #endregion
+
         public void Run()
         {
             Console.WriteLine("This application currently only reads Pst files.");
-            this.GetPathToPstFiles();
-        }
-
-        public void GetPathToPstFiles()
-        {
-            Console.WriteLine("Please provide a path to a folder containing .pst files:");
-            string pathToPstFiles = Console.ReadLine();
-            try
+            while (true)
             {
-                this.Controller.PathToPstFilesEntered(pathToPstFiles);
-            }
-            catch(PstPathException ppe)
-            {
-                if (IsUserTryingToExit(ppe))
+                this.DisplayMainMenuWelcome();
+                this.DisplayMainMenuOptions();
+                if(!this.RespondToMainMenuOptions())
                 {
-                    Console.WriteLine("User has abandoned attempt to locate Pst files.");
-                    return;
+                    break; // the user wishes to exit.
                 }
-
-                Console.WriteLine("Unfortunately we could not work with the provided path of : {0}", ppe.PstPath);
-                Console.WriteLine(ppe.Message);
-                Console.WriteLine("Please try again, or press 'e' to exit.");
-                this.GetPathToPstFiles();
             }
+
+            Console.WriteLine("Exiting application.");
         }
 
-        private bool IsUserTryingToExit(PstPathException ppe)
+        public void DisplayMainMenuWelcome()
         {
-            return ppe.PstPath == exit || ppe.PstPath == exit2;
+            Console.WriteLine("Welcome to the main menu of the Email parsing and visualisation application.");
+            Console.WriteLine("{0} emails already exist in the database.", this.Model.NumberOfExistingEmails());
         }
 
-        public void DisplayUpdatedPathToPstFiles(string path)
+        public void DisplayMainMenuOptions()
         {
-            Console.WriteLine("You requested that the following path is searched for .Pst files: '{0}'", path);
+            Console.WriteLine("Press one of the following keys to choose from the below options:");
+            Console.WriteLine("1 = Add additional data.");
+            Console.WriteLine("2 = Work with the existing data.");
+            Console.WriteLine("e = Exit the application.");
         }
 
-        public void DisplayFoundEmails(IEnumerable<Email> emails)
+        public bool RespondToMainMenuOptions()
         {
-            int count = 0;
-            foreach (Email email in emails)
+            string userInput = Console.ReadLine();
+            switch(userInput.ToLowerInvariant())
             {
-                Console.WriteLine("Email {0}", count);
-                Console.WriteLine("\tSubject  : {0}", email.Subject);
-                Console.WriteLine("\tReceived : {0}", email.ReceivedTime);
-                count++;
+                case "1":
+                    this.SpawnAddAdditionalDataDialog();
+                    break;
+                case "2":
+                    Console.WriteLine("You wish to use the existing data.");
+                    Console.WriteLine("Unfortunately this option is not yet implemented at this time!");
+                    break;
+                case "e":
+                case "exit":
+                    return false; //user wishes to exit
             }
+
+            return true;
+        }
+
+        private void SpawnAddAdditionalDataDialog()
+        {
+            var dialogModel = new AddAdditionalDataModel(this.Model.Data);
+            var dialogController = new AddAdditionalDataController(dialogModel);
+            var dialogView = new AddAdditionalDataView(dialogModel);
+            dialogView.GetPathToPstFiles();
+        }
+
+        public static bool IsUserTryingToExit(string userInput)
+        {
+            switch(userInput.ToLowerInvariant())
+            {
+                case "e":
+                case "exit":
+                    return true;
+            }
+
+            return false;
         }
     }
 }
