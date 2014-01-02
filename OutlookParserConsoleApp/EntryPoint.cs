@@ -20,7 +20,8 @@ namespace OutlookParserConsoleApp
         public static void Main()
         {
             DataStorage data = new DataStorage();
-            MainMenuModel mainMenuModel = new MainMenuModel(data);
+            DataAnalysisEngine analysisEngine = new DataAnalysisEngine(data);
+            MainMenuModel mainMenuModel = new MainMenuModel(data, analysisEngine);
             MainMenuView mainMenu = new MainMenuView(mainMenuModel);
             try
             {

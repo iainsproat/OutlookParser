@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -14,10 +15,12 @@ namespace OutlookParserConsoleApp.Models
     public class MainMenuModel : IModel
     {
         private readonly DataStorage _data;
+        private readonly DataAnalysisEngine _analysis;
 
-        public MainMenuModel(DataStorage storage)
+        public MainMenuModel(DataStorage storage, DataAnalysisEngine analysisEngine)
         {
             this._data = storage;
+            this._analysis = analysisEngine;
         }
 
         public DataStorage Data
@@ -36,6 +39,11 @@ namespace OutlookParserConsoleApp.Models
         public void DeleteAllEmails()
         {
             this._data.DeleteAll();
+        }
+
+        public IEnumerable<Tuple<DateTime, int>> GetEmailDailyCountSortedByDate()
+        {
+            return this._analysis.GetEmailDailyCountSortedByDate();
         }
     }
 }

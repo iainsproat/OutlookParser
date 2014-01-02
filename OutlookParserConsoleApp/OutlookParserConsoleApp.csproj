@@ -74,6 +74,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyEntityContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\DataAnalysisEngine.cs" />
     <Compile Include="Services\DataStorage.cs" />
     <Compile Include="Services\IPersistentEmail.cs" />
     <Compile Include="Views\AddAdditionalDataView.cs" />

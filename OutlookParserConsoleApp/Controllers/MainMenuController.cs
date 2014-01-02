@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,11 @@ namespace OutlookParserConsoleApp.Controllers
         public void DeleteAllEmails()
         {
             this.Model.DeleteAllEmails();
+        }
+
+        public IEnumerable<Tuple<DateTime, int>> GetEmailDailyCountSortedByDate()
+        {
+            return this.Model.GetEmailDailyCountSortedByDate();
         }
     }
 }
