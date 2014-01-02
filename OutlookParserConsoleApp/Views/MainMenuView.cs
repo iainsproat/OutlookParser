@@ -195,7 +195,7 @@ namespace OutlookParserConsoleApp.Views
         public void SortEmailsByDateDialog()
         {
             Console.WriteLine("Sorting the emails by date.");
-            foreach(var line in this.Model.Data.AllEmails.GroupBy(email => email.ReceivedTime.Date)
+            foreach(var line in this.Model.Data.AllEmails.GroupBy(email => email.ReceivedTime.Date) //FIXME move this code to the model
                         .Select(group => new { 
                              Date = group.Key, 
                              Count = group.Count() 
