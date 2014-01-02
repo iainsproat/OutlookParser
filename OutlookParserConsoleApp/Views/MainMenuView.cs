@@ -152,8 +152,19 @@ namespace OutlookParserConsoleApp.Views
                     Console.WriteLine("Unfortunately this option is not yet available!");
                     break;
                 case "3":
-                    Console.WriteLine("You wish to delete the existing data."); //TODO
-                    Console.WriteLine("Unfortunately this option is not yet available!");
+                    Console.WriteLine("Do you really wish to delete the existing data? Press 'y' to confirm or press any other key to return to the main menu.");
+                    string confirmation = Console.ReadLine();
+                    if (confirmation.ToLowerInvariant() == "y")
+                    {
+                        Console.WriteLine("Deleting all emails.");
+                        this.Controller.DeleteAllEmails();
+                        Console.WriteLine("All emails are now deleted.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You chose not to delete all the emails, and we will return to the main menu.");
+                    }
+
                     break;
                 case "e":
                 case "exit":

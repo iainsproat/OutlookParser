@@ -32,5 +32,10 @@ namespace OutlookParserConsoleApp.Models
         {
             return this._data.Count;
         }
+
+        public void DeleteAllEmails()
+        {
+            this._data.DeleteAll();
+        }
     }
 }

@@ -24,5 +24,10 @@ namespace OutlookParserConsoleApp.Controllers
                 return this.mdl;
             }
         }
+
+        public void DeleteAllEmails()
+        {
+            this.Model.DeleteAllEmails();
+        }
     }
 }

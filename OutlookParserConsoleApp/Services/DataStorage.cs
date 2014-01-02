@@ -14,9 +14,14 @@ namespace OutlookParserConsoleApp.Services
 
         protected MyEntityContext NewContext()
         {
-            return new MyEntityContext(connectionString);
+            return new MyEntityContext(connectionString); //FIXME should we save just a single context in a private variable and use it repeatedly?
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emails"></param>
+        /// <returns>The number of emails stored.</returns>
         public int Store(IEnumerable<Email> emails)
         {
             var ctx = this.NewContext();
@@ -34,14 +39,30 @@ namespace OutlookParserConsoleApp.Services
             return count;
         }
 
+        public void DeleteAll()
+        {
+            var ctx = this.NewContext();
+            var allEmails = this.GetAllEmails(ctx);
+            foreach (var email in allEmails)
+            {
+                ctx.DeleteObject(email);
+            }
+
+            ctx.SaveChanges();
+        }
+
         public IEnumerable<IPersistentEmail> AllEmails
         {
             get
             {
                 var ctx = this.NewContext();
-
-                return ctx.PersistentEmails;
+                return this.GetAllEmails(ctx);
             }
+        }
+
+        public IEnumerable<IPersistentEmail> GetAllEmails(MyEntityContext ctx)
+        {
+            return ctx.PersistentEmails;
         }
 
         public int Count
