@@ -152,19 +152,7 @@ namespace OutlookParserConsoleApp.Views
                     Console.WriteLine("Unfortunately this option is not yet available!");
                     break;
                 case "3":
-                    Console.WriteLine("Do you really wish to delete the existing data? Press 'y' to confirm or press any other key to return to the main menu.");
-                    string confirmation = Console.ReadLine();
-                    if (confirmation.ToLowerInvariant() == "y")
-                    {
-                        Console.WriteLine("Deleting all emails.");
-                        this.Controller.DeleteAllEmails();
-                        Console.WriteLine("All emails are now deleted.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You chose not to delete all the emails, and we will return to the main menu.");
-                    }
-
+                    this.DeleteAllEmailsDialog();
                     break;
                 case "e":
                 case "exit":
@@ -185,6 +173,22 @@ namespace OutlookParserConsoleApp.Views
             var dialogView = new AddAdditionalDataView(dialogModel);
             dialogView.GetPathToPstFiles();
             EntryPoint.Output.Indent--;
+        }
+
+        private void DeleteAllEmailsDialog()
+        {
+            Console.WriteLine("Do you really wish to delete the existing data? Press 'y' to confirm or press any other key to return to the main menu.");
+            string confirmation = Console.ReadLine();
+            if (confirmation.ToLowerInvariant() == "y")
+            {
+                Console.WriteLine("Deleting all emails.");
+                this.Controller.DeleteAllEmails();
+                Console.WriteLine("All emails are now deleted.");
+            }
+            else
+            {
+                Console.WriteLine("You chose not to delete all the emails, and we will return to the main menu.");
+            }
         }
 
         public static bool IsUserTryingToExit(string userInput)
