@@ -63,11 +63,13 @@ namespace EmailVisualiser.ConsoleApp.Views
 
         public void Register(MainMenuModel model)
         {
+            this.Model.EmailsCounted += this.DisplayNumberOfEmails;
             this.Model.AllEmailsDeleted += this.ConfirmAllEmailsDeleted;
         }
 
         public void Release(MainMenuModel model)
         {
+            this.Model.EmailsCounted -= this.DisplayNumberOfEmails;
             this.Model.AllEmailsDeleted -= this.ConfirmAllEmailsDeleted;
         }
 
@@ -125,7 +127,12 @@ namespace EmailVisualiser.ConsoleApp.Views
         protected void DisplayMainMenuWelcome()
         {
             Console.WriteLine("---Main Menu---");
-            Console.WriteLine("{0} emails already exist in the database.", this.Model.NumberOfExistingEmails);
+            this.Controller.NumberOfExistingEmails();
+        }
+
+        protected void DisplayNumberOfEmails(int numberOfEmails)
+        {
+            Console.WriteLine("{0} emails already exist in the database.", numberOfEmails);
         }
 
         protected void DisplayMainMenuOptions()

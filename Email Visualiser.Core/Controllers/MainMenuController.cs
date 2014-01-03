@@ -26,6 +26,11 @@ namespace EmailVisualiser.Controllers
             }
         }
 
+        public int NumberOfExistingEmails()
+        {
+            return this.Model.NumberOfExistingEmails;
+        }
+
         public void DeleteAllEmails()
         {
             this.Model.DeleteAllEmails();

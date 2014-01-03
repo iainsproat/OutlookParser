@@ -18,6 +18,7 @@ namespace EmailVisualiser.Models
         private readonly DataStorage _data;
 
         public event Action AllEmailsDeleted;
+        public event Action<int> EmailsCounted;
 
         protected void RaiseAllEmailsDeleted()
         {
@@ -27,12 +28,20 @@ namespace EmailVisualiser.Models
             }
         }
 
+        protected void RaiseEmailsCounted(int count)
+        {
+            if(this.EmailsCounted != null)
+            {
+                this.EmailsCounted(count);
+            }
+        }
+
         public MainMenuModel(DataStorage storage)
         {
             this._data = storage;
         }
 
-        public DataStorage Data
+        public DataStorage Data //TODO we should not have to expose this
         {
             get
             {
@@ -44,7 +53,9 @@ namespace EmailVisualiser.Models
         {
             get
             {
-                return this._data.Count;
+                int count = this._data.Count;
+                this.RaiseEmailsCounted(count);
+                return count;
             }
         }
 
