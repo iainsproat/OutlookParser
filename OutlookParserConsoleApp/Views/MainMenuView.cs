@@ -198,9 +198,7 @@ namespace OutlookParserConsoleApp.Views
             }
         }
 
-        
-
-        public static bool IsUserTryingToExit(string userInput)
+        public static bool IsUserTryingToExit(string userInput) //HACK - used by spawned dialogs
         {
             switch(userInput.ToLowerInvariant())
             {

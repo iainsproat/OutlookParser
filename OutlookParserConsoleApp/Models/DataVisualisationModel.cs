@@ -11,6 +11,15 @@ namespace OutlookParserConsoleApp.Models
     class DataVisualisationModel : IModel
     {
         private readonly DataAnalysisEngine _analysis;
+        public event Action<IEnumerable<Tuple<DateTime, int>>> EmailsGroupedCountedAndSortedByDate;
+
+        protected void RaiseEmailsGroupedCountedAndSortedByDate(IEnumerable<Tuple<DateTime, int>> results)
+        {
+            if (EmailsGroupedCountedAndSortedByDate != null)
+            {
+                EmailsGroupedCountedAndSortedByDate(results);
+            }
+        }
 
         public DataVisualisationModel(DataAnalysisEngine analysisEngine)
         {
@@ -22,9 +31,10 @@ namespace OutlookParserConsoleApp.Models
             this._analysis = analysisEngine;
         }
 
-        public IEnumerable<Tuple<DateTime, int>> GetEmailDailyCountSortedByDate()
+        public void GetEmailDailyCountSortedByDate()
         {
-            return this._analysis.GetEmailDailyCountSortedByDate();
+            var results = this._analysis.GetEmailDailyCountSortedByDate();
+            this.RaiseEmailsGroupedCountedAndSortedByDate(results);
         }
     }
 }

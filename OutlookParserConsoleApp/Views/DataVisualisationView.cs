@@ -60,12 +60,12 @@ namespace OutlookParserConsoleApp.Views
 
         public void Register(DataVisualisationModel model)
         {
-            // empty
+            this.Model.EmailsGroupedCountedAndSortedByDate += this.DisplaySortedEmailsByDate;
         }
 
         public void Release(DataVisualisationModel model)
         {
-            // empty
+            this.Model.EmailsGroupedCountedAndSortedByDate -= this.DisplaySortedEmailsByDate;
         }
 
         #region IDisposal
@@ -125,7 +125,8 @@ namespace OutlookParserConsoleApp.Views
             switch (userInput.ToLowerInvariant())
             {
                 case "1":
-                    SortEmailsByDateDialog();
+                    Console.WriteLine("Sorting emails by date.");
+                    this.Controller.GetEmailDailyCountSortedByDate();
                     break;
                 case "e":
                 case "exit":
@@ -138,10 +139,8 @@ namespace OutlookParserConsoleApp.Views
             return true;
         }
 
-        private void SortEmailsByDateDialog()
+        protected void DisplaySortedEmailsByDate(IEnumerable<Tuple<DateTime, int>> results)
         {
-            Console.WriteLine("Sorting the emails by date.");
-            var results = this.Controller.GetEmailDailyCountSortedByDate();
             foreach (var line in results)
             {
                 Console.WriteLine("{0} {1}", line.Item1, line.Item2);

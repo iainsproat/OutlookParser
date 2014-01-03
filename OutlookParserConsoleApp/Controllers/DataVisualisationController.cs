@@ -25,9 +25,9 @@ namespace OutlookParserConsoleApp.Controllers
             }
         }
 
-        public IEnumerable<Tuple<DateTime, int>> GetEmailDailyCountSortedByDate()
+        public void GetEmailDailyCountSortedByDate()
         {
-            return this.Model.GetEmailDailyCountSortedByDate();
+            this.Model.GetEmailDailyCountSortedByDate();
         }
     }
 }
