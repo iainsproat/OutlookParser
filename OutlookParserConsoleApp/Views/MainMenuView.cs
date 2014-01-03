@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using OutlookParser;
+using EmailVisualiser.Views;
 using EmailVisualiser.Models;
 using EmailVisualiser.Controllers;
 
-namespace OutlookParserConsoleApp.Views
+namespace EmailVisualiser.ConsoleApp.Views
 {
     public class MainMenuView : IView<MainMenuController, MainMenuModel>, IDisposable
     {
@@ -171,15 +172,19 @@ namespace OutlookParserConsoleApp.Views
         private void SpawnAddAdditionalDataDialog()
         {
             var dialogModel = new AddAdditionalDataModel(this.Model.Data);
-            var dialogView = new AddAdditionalDataView(dialogModel);
-            dialogView.Show();
+            using (var dialogView = new AddAdditionalDataView(dialogModel))
+            {
+                dialogView.Show();
+            }
         }
 
         private void SpawnDataVisualisationView()
         {
             var spawnedModel = new DataVisualisationModel(this.Model.AnalysisEngine);
-            var spawnedView = new DataVisualisationView(spawnedModel);
-            spawnedView.Show();
+            using (var spawnedView = new DataVisualisationView(spawnedModel))
+            {
+                spawnedView.Show();
+            }
         }
 
         private void DeleteAllEmailsDialog()

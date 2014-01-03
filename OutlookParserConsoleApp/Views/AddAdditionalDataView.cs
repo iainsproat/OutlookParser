@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using OutlookParser;
 using EmailVisualiser.Models;
 using EmailVisualiser.Controllers;
+using EmailVisualiser.Views;
 
-namespace OutlookParserConsoleApp.Views
+namespace EmailVisualiser.ConsoleApp.Views
 {
     public class AddAdditionalDataView : IView<AddAdditionalDataController, AddAdditionalDataModel>, IDisposable
     {

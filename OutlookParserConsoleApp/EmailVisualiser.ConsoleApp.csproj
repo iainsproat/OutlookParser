@@ -7,8 +7,8 @@
     <ProjectGuid>{273C130B-E1CD-4BBE-BA17-EDEFEC6F40AA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EmailVisualiserConsoleApp</RootNamespace>
-    <AssemblyName>EmailVisualiserConsoleApp</AssemblyName>
+    <RootNamespace>EmailVisualiser.ConsoleApp</RootNamespace>
+    <AssemblyName>EmailVisualiser.ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NoWin32Manifest>False</NoWin32Manifest>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using EmailVisualiser.Controllers;
 using EmailVisualiser.Models;
 
-namespace OutlookParserConsoleApp.Views
+namespace EmailVisualiser.Views
 {
     public interface IView
     {

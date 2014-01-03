@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 using EmailVisualiser.Controllers;
 using EmailVisualiser.Models;
-using OutlookParserConsoleApp.Views;
+using EmailVisualiser.ConsoleApp.Views;
 using EmailVisualiser.Analysis;
 using EmailVisualiser.Data;
 
-namespace OutlookParserConsoleApp
+namespace EmailVisualiser.ConsoleApp
 {
     public class EntryPoint
     {
@@ -23,22 +23,24 @@ namespace OutlookParserConsoleApp
             DataStorage data = new DataStorage();
             DataAnalysisEngine analysisEngine = new DataAnalysisEngine(data);
             MainMenuModel mainMenuModel = new MainMenuModel(data, analysisEngine);
-            MainMenuView mainMenu = new MainMenuView(mainMenuModel);
-            try
+            using (var mainMenu = new MainMenuView(mainMenuModel))
             {
-                mainMenu.Run();
-            }
-            catch(Exception e)
-            {
-                TextWriter errorWriter = Console.Error;
-                errorWriter.WriteLine("------An error has been encountered.------");
-                errorWriter.WriteLine(e.Message);
+                try
+                {
+                    mainMenu.Run();
+                }
+                catch(Exception e)
+                {
+                    TextWriter errorWriter = Console.Error;
+                    errorWriter.WriteLine("------An error has been encountered.------");
+                    errorWriter.WriteLine(e.Message);
 #if DEBUG
-                errorWriter.WriteLine(e.InnerException);
-                errorWriter.WriteLine(e.StackTrace);
+                    errorWriter.WriteLine(e.InnerException);
+                    errorWriter.WriteLine(e.StackTrace);
 #endif
-                errorWriter.WriteLine("------The application will now close.------");
+                    errorWriter.WriteLine("------The application will now close.------");
 
+                }
             }
 
             Console.ReadLine();

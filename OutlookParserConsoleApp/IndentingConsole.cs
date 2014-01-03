@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
 
-namespace OutlookParserConsoleApp
+namespace EmailVisualiser.ConsoleApp
 {
-    public class IndentingConsole : TextWriter
+    public class IndentingConsole : System.IO.TextWriter
     {
-        TextWriter oldConsole;
+        System.IO.TextWriter oldConsole;
         bool doIndent;
 
         public IndentingConsole()
         {
-            oldConsole = Console.Out;
-            Console.SetOut(this);
+            oldConsole = System.Console.Out;
+            System.Console.SetOut(this);
         }
 
         public int Indent { get; set; }
