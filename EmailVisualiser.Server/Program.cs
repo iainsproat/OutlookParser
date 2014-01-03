@@ -13,15 +13,16 @@ namespace EmailVisualiser.Server
         [STAThread]
         static void Main(string[] args)
         {
-            using (var host = new NancyHost(new Uri(startUrl)))
-            {
-                Console.WriteLine("Launching Email Visualiser.");
-                host.Start();
-                Console.WriteLine("Server has launched.");
-                Console.WriteLine("Launching browser...");
-                Process.Start(startUrl);
-                Console.ReadLine();
-            }
+            var host = new NancyHost(new Uri(startUrl));
+
+            Console.WriteLine("Launching Email Visualiser.");
+            host.Start();
+            Console.WriteLine("Server has launched.");
+            Console.WriteLine("Launching browser...");
+            Process.Start(startUrl);
+            Console.WriteLine("Press any key to stop the server.");
+            Console.ReadLine();
+            host.Stop();
         }
     }
 }

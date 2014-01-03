@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email Visualiser.Core", "Em
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailVisualiser.Server", "EmailVisualiser.Server\EmailVisualiser.Server.csproj", "{17C2F374-D5CE-423D-9C08-2D01E24AAAE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailVisualiser.WebApp", "EmailVisualiser.WebApp\EmailVisualiser.WebApp.csproj", "{B0E2922D-3490-4FF2-84A6-0EA416A844F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{17C2F374-D5CE-423D-9C08-2D01E24AAAE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17C2F374-D5CE-423D-9C08-2D01E24AAAE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17C2F374-D5CE-423D-9C08-2D01E24AAAE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E2922D-3490-4FF2-84A6-0EA416A844F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E2922D-3490-4FF2-84A6-0EA416A844F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E2922D-3490-4FF2-84A6-0EA416A844F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E2922D-3490-4FF2-84A6-0EA416A844F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
