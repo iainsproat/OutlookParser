@@ -10,6 +10,9 @@
     <link href="css/bootstrap-theme.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="css/theme.css" rel="stylesheet">
+    <!-- Rickshaw Graph styles -->
+    <link type="text/css" rel="stylesheet" href="css/graph.css">
+    <link type="text/css" rel="stylesheet" href="css/graphdetail.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -64,13 +67,35 @@
 
             var graph = new Rickshaw.Graph({
                 element: $("#chart")[0],
-                width: 235,
-                height: 85,
+                width: 400,
+                height: 200,
                 renderer: 'bar',
                 series: [{
+                    name: 'emails per day',
                     data: json,
                     color: 'steelblue'
                 }]
+            });
+
+            var dateFormatter = function (x) { return new Date(x * 1000).toLocaleDateString() };
+            new Rickshaw.Graph.Axis.Time({
+                graph: graph
+           });
+
+            new Rickshaw.Graph.HoverDetail({
+                graph: graph,
+               formatter: function (series, x, y) {
+                    var date = '<span class="date">' + dateFormatter(x) + '</span>';
+                    var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
+                    var content = swatch + series.name + ": " + parseInt(y) + '<br>' + date;
+                    return content;
+                }
+            });
+
+            new Rickshaw.Graph.Axis.Y({
+                graph: graph,
+                orientation: 'left',
+                tickFormat: Rickshaw.Fixtures.Number.formatKMBT
             });
 
             graph.render();

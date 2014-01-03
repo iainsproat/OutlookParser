@@ -28,12 +28,18 @@ namespace EmailVisualiser.WebApp
                 {
                     return Response.AsCss("Content/" + parameters.File as string);
                 };
-            Get["/data/{File}"] = parameters =>
+            Get["/data/{File}"] = parameters => //TODO no need to refer to a file anymore!
                 {
                     var dailyEmails = analysisEngine.GetEmailDailyCountSortedByDate();
                     return Response.AsJson(dailyEmails.Select(dailyEmail =>
                         {
-                            return new { x = dailyEmail.Item1.DayOfYear, y = dailyEmail.Item2 };
+                            return new
+                            {
+                                x = dailyEmail.Item1.ToUniversalTime().Subtract(
+                                    new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                                    ).TotalMilliseconds / 1000, //seconds
+                                y = dailyEmail.Item2
+                            };
                         }));
                 };
         }
