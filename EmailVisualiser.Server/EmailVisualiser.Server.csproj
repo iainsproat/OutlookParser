@@ -66,6 +66,10 @@
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Email Visualiser.Core\EmailVisualiser.Core.csproj">
+      <Project>{b4b89d6e-da52-4a34-a1b6-85e1e72f39db}</Project>
+      <Name>EmailVisualiser.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EmailVisualiser.WebApp\EmailVisualiser.WebApp.csproj">
       <Project>{b0e2922d-3490-4ff2-84a6-0ea416a844f7}</Project>
       <Name>EmailVisualiser.WebApp</Name>

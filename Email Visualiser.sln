@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
+# Visual Studio Express 2013 for Web
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outlook Parser", "Outlook Parser\Outlook Parser.csproj", "{46BF3AC1-70EA-415E-B048-50B543581D67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailVisualiser.ConsoleApp", "OutlookParserConsoleApp\EmailVisualiser.ConsoleApp.csproj", "{273C130B-E1CD-4BBE-BA17-EDEFEC6F40AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email Visualiser.Core", "Email Visualiser.Core\Email Visualiser.Core.csproj", "{B4B89D6E-DA52-4A34-A1B6-85E1E72F39DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailVisualiser.Core", "Email Visualiser.Core\EmailVisualiser.Core.csproj", "{B4B89D6E-DA52-4A34-A1B6-85E1E72F39DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailVisualiser.Server", "EmailVisualiser.Server\EmailVisualiser.Server.csproj", "{17C2F374-D5CE-423D-9C08-2D01E24AAAE1}"
 EndProject

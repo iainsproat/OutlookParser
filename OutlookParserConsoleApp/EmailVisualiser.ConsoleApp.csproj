@@ -50,9 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Email Visualiser.Core\Email Visualiser.Core.csproj">
+    <ProjectReference Include="..\Email Visualiser.Core\EmailVisualiser.Core.csproj">
       <Project>{b4b89d6e-da52-4a34-a1b6-85e1e72f39db}</Project>
-      <Name>Email Visualiser.Core</Name>
+      <Name>EmailVisualiser.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Outlook Parser\Outlook Parser.csproj">
       <Project>{46bf3ac1-70ea-415e-b048-50b543581d67}</Project>
