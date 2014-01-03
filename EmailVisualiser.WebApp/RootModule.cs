@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 using Nancy;
 
+using EmailVisualiser.Analysis;
+using EmailVisualiser.Data;
+using EmailVisualiser.Models;
+
 namespace EmailVisualiser.WebApp
 {
     public class RootModule : NancyModule
     {
-        public RootModule()
+        public RootModule(DataAnalysisEngine analysisEngine)
         {
             Get["/"] = parameters =>
                 {
                     return View["index.cshtml"];
-                };           
+                };
             Get["/js/{File}"] = parameters =>
                 {
                     return Response.AsJs("Scripts/" + parameters.File as string);
@@ -26,7 +30,11 @@ namespace EmailVisualiser.WebApp
                 };
             Get["/data/{File}"] = parameters =>
                 {
-                    return Response.AsFile("Data/" + parameters.File as string + ".json");
+                    var dailyEmails = analysisEngine.GetEmailDailyCountSortedByDate();
+                    return Response.AsJson(dailyEmails.Select(dailyEmail =>
+                        {
+                            return new { x = dailyEmail.Item1.DayOfYear, y = dailyEmail.Item2 };
+                        }));
                 };
         }
     }

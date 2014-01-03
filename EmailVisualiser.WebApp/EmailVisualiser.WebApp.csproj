@@ -48,9 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Data\graphData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="fonts\glyphicons-halflings-regular.eot">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -108,6 +105,12 @@
     </Content>
     <Content Include="Scripts\rickshaw.js" />
     <Content Include="Scripts\rickshaw.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Email Visualiser.Core\Email Visualiser.Core.csproj">
+      <Project>{b4b89d6e-da52-4a34-a1b6-85e1e72f39db}</Project>
+      <Name>Email Visualiser.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
