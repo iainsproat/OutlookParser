@@ -16,12 +16,10 @@ namespace EmailVisualiser.Models
     public class MainMenuModel : IModel
     {
         private readonly DataStorage _data;
-        private readonly DataAnalysisEngine _analysis;
 
-        public MainMenuModel(DataStorage storage, DataAnalysisEngine analysisEngine)
+        public MainMenuModel(DataStorage storage)
         {
             this._data = storage;
-            this._analysis = analysisEngine;
         }
 
         public DataStorage Data
@@ -29,14 +27,6 @@ namespace EmailVisualiser.Models
             get
             {
                 return this._data;
-            }
-        }
-
-        public DataAnalysisEngine AnalysisEngine
-        {
-            get
-            {
-                return this._analysis;
             }
         }
 

@@ -8,6 +8,7 @@ using OutlookParser;
 using EmailVisualiser.Views;
 using EmailVisualiser.Models;
 using EmailVisualiser.Controllers;
+using EmailVisualiser.Analysis;
 
 namespace EmailVisualiser.ConsoleApp.Views
 {
@@ -180,7 +181,8 @@ namespace EmailVisualiser.ConsoleApp.Views
 
         private void SpawnDataVisualisationView()
         {
-            var spawnedModel = new DataVisualisationModel(this.Model.AnalysisEngine);
+            var analysisEngine = new DataAnalysisEngine(this.Model.Data);
+            var spawnedModel = new DataVisualisationModel(analysisEngine);
             using (var spawnedView = new DataVisualisationView(spawnedModel))
             {
                 spawnedView.Show();

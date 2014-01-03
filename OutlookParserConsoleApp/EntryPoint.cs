@@ -21,8 +21,7 @@ namespace EmailVisualiser.ConsoleApp
         public static void Main()
         {
             DataStorage data = new DataStorage();
-            DataAnalysisEngine analysisEngine = new DataAnalysisEngine(data);
-            MainMenuModel mainMenuModel = new MainMenuModel(data, analysisEngine);
+            MainMenuModel mainMenuModel = new MainMenuModel(data);
             using (var mainMenu = new MainMenuView(mainMenuModel))
             {
                 try
