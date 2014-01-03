@@ -18,7 +18,8 @@ namespace EmailVisualiser.WebApp
         {
             Get["/"] = parameters =>
                 {
-                    return View["index.cshtml"];
+                    DataStorage data = new DataStorage();
+                    return View["index.cshtml", new MainMenuModel(data)];
                 };
             Get["/js/{File}"] = parameters =>
                 {
