@@ -15,6 +15,14 @@ namespace EmailVisualiser.WebApp
             Get["/"] = parameters =>
                 {
                     return View["index.cshtml"];
+                };           
+            Get["/js/{File}"] = parameters =>
+                {
+                    return Response.AsJs("Scripts/" + parameters.File as string);
+                };
+            Get["/css/{File}"] = parameters =>
+                {
+                    return Response.AsCss("Content/" + parameters.File as string);
                 };
         }
     }

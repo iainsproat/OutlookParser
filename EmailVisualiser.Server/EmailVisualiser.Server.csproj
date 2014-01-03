@@ -70,7 +70,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
+    <PostBuildEvent>xcopy /s /y /R "$(SolutionDir)EmailVisualiser.WebApp\Content" "$(TargetDir)\Content"
+xcopy /s /y /R "$(SolutionDir)EmailVisualiser.WebApp\fonts" "$(TargetDir)\fonts"
+xcopy /s /y /R "$(SolutionDir)EmailVisualiser.WebApp\Scripts" "$(TargetDir)\Scripts"
+xcopy /s /y /R "$(SolutionDir)EmailVisualiser.WebApp\Views" "$(TargetDir)\Views"
+
 if $(ConfigurationName) == Debug (
 xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.21.1\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll" "$(ProjectDir)bin\"
 xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.21.1\lib\Net40\Nancy.ViewEngines.Razor.dll" "$(ProjectDir)bin\"
