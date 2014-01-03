@@ -7,8 +7,8 @@
     <ProjectGuid>{273C130B-E1CD-4BBE-BA17-EDEFEC6F40AA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OutlookParserConsoleApp</RootNamespace>
-    <AssemblyName>OutlookParserConsoleApp</AssemblyName>
+    <RootNamespace>EmailVisualiserConsoleApp</RootNamespace>
+    <AssemblyName>EmailVisualiserConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NoWin32Manifest>False</NoWin32Manifest>
@@ -39,64 +39,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BrightstarDB">
-      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\BrightstarDB.dll</HintPath>
-    </Reference>
-    <Reference Include="dotNetRDF">
-      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\dotNetRDF.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Remotion.Linq">
-      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\Remotion.Linq.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="VDS.Common">
-      <HintPath>..\packages\BrightstarDB.1.5.3.0\lib\net40\VDS.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AddAdditionalDataController.cs" />
-    <Compile Include="Controllers\DataVisualisationController.cs" />
-    <Compile Include="Controllers\IController.cs" />
-    <Compile Include="Controllers\MainMenuController.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="Models\AddAdditionalDataModel.cs" />
-    <Compile Include="Models\DataVisualisationModel.cs" />
-    <Compile Include="Models\IModel.cs" />
-    <Compile Include="Models\MainMenuModel.cs" />
-    <Compile Include="Models\PstPathException.cs" />
     <Compile Include="IndentingConsole.cs" />
-    <Compile Include="MyEntityContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyEntityContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Services\DataAnalysisEngine.cs" />
-    <Compile Include="Services\DataStorage.cs" />
-    <Compile Include="Services\IPersistentEmail.cs" />
     <Compile Include="Views\AddAdditionalDataView.cs" />
     <Compile Include="Views\DataVisualisationView.cs" />
-    <Compile Include="Views\IView.cs" />
     <Compile Include="Views\MainMenuView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Email Visualiser.Core\Email Visualiser.Core.csproj">
+      <Project>{b4b89d6e-da52-4a34-a1b6-85e1e72f39db}</Project>
+      <Name>Email Visualiser.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Outlook Parser\Outlook Parser.csproj">
       <Project>{46bf3ac1-70ea-415e-b048-50b543581d67}</Project>
       <Name>Outlook Parser</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MyEntityContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MyEntityContext.cs</LastGenOutput>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

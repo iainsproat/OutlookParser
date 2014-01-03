@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OutlookParserConsoleApp.Services
+using EmailVisualiser.Data;
+
+namespace EmailVisualiser.Analysis
 {
     public class DataAnalysisEngine
     {

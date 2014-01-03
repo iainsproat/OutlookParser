@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OutlookParserConsoleApp.Controllers;
-using OutlookParserConsoleApp.Models;
+using EmailVisualiser.Controllers;
+using EmailVisualiser.Models;
 using OutlookParserConsoleApp.Views;
-using OutlookParserConsoleApp.Services;
+using EmailVisualiser.Analysis;
+using EmailVisualiser.Data;
 
 namespace OutlookParserConsoleApp
 {

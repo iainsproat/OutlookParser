@@ -15,7 +15,7 @@ using BrightstarDB.Client;
 using BrightstarDB.EntityFramework;
 
 
-namespace OutlookParserConsoleApp 
+namespace EmailVisualiser 
 {
     public partial class MyEntityContext : BrightstarEntityContext {
     	private static readonly EntityMappingStore TypeMappings;
@@ -24,8 +24,8 @@ namespace OutlookParserConsoleApp
     	{
     		TypeMappings = new EntityMappingStore();
     		var provider = new ReflectionMappingProvider();
-    		provider.AddMappingsForType(TypeMappings, typeof(OutlookParserConsoleApp.Services.IPersistentEmail));
-    		TypeMappings.AddImplMapping<OutlookParserConsoleApp.Services.IPersistentEmail, OutlookParserConsoleApp.Services.PersistentEmail>();
+    		provider.AddMappingsForType(TypeMappings, typeof(EmailVisualiser.Data.IPersistentEmail));
+    		TypeMappings.AddImplMapping<EmailVisualiser.Data.IPersistentEmail, EmailVisualiser.Data.PersistentEmail>();
     	}
     	
     	/// <summary>
@@ -91,24 +91,24 @@ namespace OutlookParserConsoleApp
     	
     	private void InitializeContext() 
     	{
-    		PersistentEmails = 	new BrightstarEntitySet<OutlookParserConsoleApp.Services.IPersistentEmail>(this);
+    		PersistentEmails = 	new BrightstarEntitySet<EmailVisualiser.Data.IPersistentEmail>(this);
     	}
     	
-    	public IEntitySet<OutlookParserConsoleApp.Services.IPersistentEmail> PersistentEmails
+    	public IEntitySet<EmailVisualiser.Data.IPersistentEmail> PersistentEmails
     	{
     		get; private set;
     	}
     	
     }
 }
-namespace OutlookParserConsoleApp.Services 
+namespace EmailVisualiser.Data 
 {
     
     public partial class PersistentEmail : BrightstarEntityObject, IPersistentEmail 
     {
     	public PersistentEmail(BrightstarEntityContext context, IDataObject dataObject) : base(context, dataObject) { }
     	public PersistentEmail() : base() { }
-    	#region Implementation of OutlookParserConsoleApp.Services.IPersistentEmail
+    	#region Implementation of EmailVisualiser.Data.IPersistentEmail
     
     	public System.String Subject
     	{

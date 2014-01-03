@@ -5,7 +5,9 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outlook Parser", "Outlook Parser\Outlook Parser.csproj", "{46BF3AC1-70EA-415E-B048-50B543581D67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookParserConsoleApp", "OutlookParserConsoleApp\OutlookParserConsoleApp.csproj", "{273C130B-E1CD-4BBE-BA17-EDEFEC6F40AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailVisualiserConsoleApp", "OutlookParserConsoleApp\EmailVisualiserConsoleApp.csproj", "{273C130B-E1CD-4BBE-BA17-EDEFEC6F40AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email Visualiser.Core", "Email Visualiser.Core\Email Visualiser.Core.csproj", "{B4B89D6E-DA52-4A34-A1B6-85E1E72F39DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{273C130B-E1CD-4BBE-BA17-EDEFEC6F40AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{273C130B-E1CD-4BBE-BA17-EDEFEC6F40AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{273C130B-E1CD-4BBE-BA17-EDEFEC6F40AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4B89D6E-DA52-4A34-A1B6-85E1E72F39DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4B89D6E-DA52-4A34-A1B6-85E1E72F39DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4B89D6E-DA52-4A34-A1B6-85E1E72F39DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4B89D6E-DA52-4A34-A1B6-85E1E72F39DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

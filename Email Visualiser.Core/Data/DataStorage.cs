@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OutlookParser;
+using OutlookParser; //TODO remove this reference
 
-namespace OutlookParserConsoleApp.Services
+namespace EmailVisualiser.Data
 {
     public class DataStorage
     {

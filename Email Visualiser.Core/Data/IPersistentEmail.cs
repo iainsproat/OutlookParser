@@ -2,7 +2,7 @@
 
 using BrightstarDB.EntityFramework;
 
-namespace OutlookParserConsoleApp.Services
+namespace EmailVisualiser.Data
 {
     [Entity]
     public interface IPersistentEmail
