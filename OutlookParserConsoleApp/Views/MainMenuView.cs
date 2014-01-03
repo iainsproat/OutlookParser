@@ -63,12 +63,12 @@ namespace EmailVisualiser.ConsoleApp.Views
 
         public void Register(MainMenuModel model)
         {
-            // empty
+            this.Model.AllEmailsDeleted += this.ConfirmAllEmailsDeleted;
         }
 
         public void Release(MainMenuModel model)
         {
-            // empty
+            this.Model.AllEmailsDeleted -= this.ConfirmAllEmailsDeleted;
         }
 
         #region IDisposal
@@ -122,13 +122,13 @@ namespace EmailVisualiser.ConsoleApp.Views
             Console.WriteLine("Exiting application.");
         }
 
-        public void DisplayMainMenuWelcome()
+        protected void DisplayMainMenuWelcome()
         {
             Console.WriteLine("---Main Menu---");
-            Console.WriteLine("{0} emails already exist in the database.", this.Model.NumberOfExistingEmails());
+            Console.WriteLine("{0} emails already exist in the database.", this.Model.NumberOfExistingEmails);
         }
 
-        public void DisplayMainMenuOptions()
+        protected void DisplayMainMenuOptions()
         {
             Console.WriteLine("Press one of the following keys to choose from the below options:");
             Console.WriteLine("1 = Add additional data.");
@@ -141,7 +141,7 @@ namespace EmailVisualiser.ConsoleApp.Views
         /// 
         /// </summary>
         /// <returns>False if the user wishes to exit, otherwise true</returns>
-        public bool RespondToMainMenuOptions()
+        protected bool RespondToMainMenuOptions()
         {
             string userInput = Console.ReadLine();
 
@@ -170,7 +170,7 @@ namespace EmailVisualiser.ConsoleApp.Views
             return true;
         }
 
-        private void SpawnAddAdditionalDataDialog()
+        protected void SpawnAddAdditionalDataDialog()
         {
             var dialogModel = new AddAdditionalDataModel(this.Model.Data);
             using (var dialogView = new AddAdditionalDataView(dialogModel))
@@ -179,7 +179,7 @@ namespace EmailVisualiser.ConsoleApp.Views
             }
         }
 
-        private void SpawnDataVisualisationView()
+        protected void SpawnDataVisualisationView()
         {
             var analysisEngine = new DataAnalysisEngine(this.Model.Data);
             var spawnedModel = new DataVisualisationModel(analysisEngine);
@@ -189,7 +189,7 @@ namespace EmailVisualiser.ConsoleApp.Views
             }
         }
 
-        private void DeleteAllEmailsDialog()
+        protected void DeleteAllEmailsDialog()
         {
             Console.WriteLine("Do you really wish to delete the existing data? Press 'y' to confirm or press any other key to return to the main menu.");
             string confirmation = Console.ReadLine();
@@ -197,12 +197,16 @@ namespace EmailVisualiser.ConsoleApp.Views
             {
                 Console.WriteLine("Deleting all emails.");
                 this.Controller.DeleteAllEmails();
-                Console.WriteLine("All emails are now deleted.");
             }
             else
             {
                 Console.WriteLine("You chose not to delete all the emails, and we will return to the main menu.");
             }
+        }
+
+        protected void ConfirmAllEmailsDeleted()
+        {
+            Console.WriteLine("All emails are now deleted.");
         }
 
         public static bool IsUserTryingToExit(string userInput) //HACK - used by spawned dialogs

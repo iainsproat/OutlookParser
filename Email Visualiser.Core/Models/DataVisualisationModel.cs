@@ -11,6 +11,7 @@ namespace EmailVisualiser.Models
     public class DataVisualisationModel : IModel
     {
         private readonly DataAnalysisEngine _analysis;
+
         public event Action<IEnumerable<Tuple<DateTime, int>>> EmailsGroupedCountedAndSortedByDate;
 
         protected void RaiseEmailsGroupedCountedAndSortedByDate(IEnumerable<Tuple<DateTime, int>> results)
@@ -31,10 +32,11 @@ namespace EmailVisualiser.Models
             this._analysis = analysisEngine;
         }
 
-        public void GetEmailDailyCountSortedByDate()
+        public IEnumerable<Tuple<DateTime, int>> GetEmailDailyCountSortedByDate()
         {
             var results = this._analysis.GetEmailDailyCountSortedByDate();
             this.RaiseEmailsGroupedCountedAndSortedByDate(results);
+            return results;
         }
     }
 }

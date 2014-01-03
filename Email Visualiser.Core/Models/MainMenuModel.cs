@@ -17,6 +17,16 @@ namespace EmailVisualiser.Models
     {
         private readonly DataStorage _data;
 
+        public event Action AllEmailsDeleted;
+
+        protected void RaiseAllEmailsDeleted()
+        {
+            if(this.AllEmailsDeleted != null)
+            {
+                this.AllEmailsDeleted();
+            }
+        }
+
         public MainMenuModel(DataStorage storage)
         {
             this._data = storage;
@@ -30,14 +40,18 @@ namespace EmailVisualiser.Models
             }
         }
 
-        public int NumberOfExistingEmails()
+        public int NumberOfExistingEmails
         {
-            return this._data.Count;
+            get
+            {
+                return this._data.Count;
+            }
         }
 
         public void DeleteAllEmails()
         {
             this._data.DeleteAll();
+            this.RaiseAllEmailsDeleted();
         }
     }
 }
