@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OutlookParserConsoleApp.Models
+namespace EmailVisualiser.Models
 {
     public interface IModel
     {

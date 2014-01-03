@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using OutlookParser;
-using OutlookParserConsoleApp.Models;
-using OutlookParserConsoleApp.Controllers;
+using EmailVisualiser.Models;
+using EmailVisualiser.Controllers;
 
 namespace OutlookParserConsoleApp.Views
 {

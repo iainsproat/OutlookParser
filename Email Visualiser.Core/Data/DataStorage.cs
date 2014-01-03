@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OutlookParser; //TODO remove this reference
+using AutoMapper;
 
 namespace EmailVisualiser.Data
 {
@@ -22,16 +22,15 @@ namespace EmailVisualiser.Data
         /// </summary>
         /// <param name="emails"></param>
         /// <returns>The number of emails stored.</returns>
-        public int Store(IEnumerable<Email> emails)
+        public int Store(IEnumerable<IPersistentEmail> emails)
         {
             var ctx = this.NewContext();
 
             int count = 0;
-            foreach (Email email in emails)
+            foreach (IPersistentEmail email in emails)
             {
                 IPersistentEmail persistentEmail = ctx.PersistentEmails.Create();
-                persistentEmail.Subject = email.Subject;
-                persistentEmail.ReceivedTime = email.ReceivedTime;
+                Mapper.Map<IPersistentEmail, IPersistentEmail>(email, persistentEmail); //copy across data in the properties
                 count++;
             }
 

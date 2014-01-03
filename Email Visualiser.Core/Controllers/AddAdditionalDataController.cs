@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OutlookParserConsoleApp.Models;
+using EmailVisualiser.Models;
 
-namespace OutlookParserConsoleApp.Controllers
+namespace EmailVisualiser.Controllers
 {
     public class AddAdditionalDataController : IController<AddAdditionalDataModel>
     {

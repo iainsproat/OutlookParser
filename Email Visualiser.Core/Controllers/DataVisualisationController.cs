@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OutlookParserConsoleApp.Models;
+using EmailVisualiser.Models;
 
-namespace OutlookParserConsoleApp.Controllers
+namespace EmailVisualiser.Controllers
 {
-    class DataVisualisationController : IController<DataVisualisationModel>
+    public class DataVisualisationController : IController<DataVisualisationModel>
     {
         private readonly DataVisualisationModel mdl;
 

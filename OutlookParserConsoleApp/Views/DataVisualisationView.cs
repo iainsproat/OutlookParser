@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OutlookParserConsoleApp.Models;
-using OutlookParserConsoleApp.Controllers;
+using EmailVisualiser.Models;
+using EmailVisualiser.Controllers;
 
 namespace OutlookParserConsoleApp.Views
 {

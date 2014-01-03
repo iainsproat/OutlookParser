@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OutlookParserConsoleApp.Models
+namespace EmailVisualiser.Models
 {
-    class PstPathException : Exception
+    public class PstPathException : Exception
     {
         public PstPathException(string path)
             :this(path, null, null)
