@@ -39,7 +39,6 @@ namespace EmailVisualiser.ConsoleApp
                     errorWriter.WriteLine(e.StackTrace);
 #endif
                     errorWriter.WriteLine("------The application will now close.------");
-
                 }
             }
 

@@ -79,15 +79,21 @@
     <Content Include="Content\bootstrap.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\rickshaw.css" />
+    <Content Include="Content\rickshaw.min.css" />
+    <Content Include="D3 LICENSE.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Rickshaw-LICENSE.txt" />
     <Content Include="Scripts\bootstrap.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\bootstrap.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\d3.v3.js" />
+    <Content Include="Scripts\d3.v3.min.js" />
     <Content Include="Scripts\jquery-1.9.1.intellisense.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -97,6 +103,8 @@
     <Content Include="Scripts\jquery-1.9.1.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\rickshaw.js" />
+    <Content Include="Scripts\rickshaw.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
