@@ -12,6 +12,13 @@ namespace EmailVisualiser.Data
     {
         const string connectionString = "type=embedded;storesdirectory=.\\;storename=Emails";
 
+        static DataStorage()
+        {
+            Mapper.CreateMap<IPersistentEmail, IPersistentEmail>()
+                .ForMember(dest => dest.ReceivedTime, opt => opt.MapFrom(src => src.ReceivedTime))
+                .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject));
+        }
+
         protected MyEntityContext NewContext()
         {
             return new MyEntityContext(connectionString); //FIXME should we save just a single context in a private variable and use it repeatedly?
@@ -30,7 +37,7 @@ namespace EmailVisualiser.Data
             foreach (IPersistentEmail email in emails)
             {
                 IPersistentEmail persistentEmail = ctx.PersistentEmails.Create();
-                Mapper.Map<IPersistentEmail, IPersistentEmail>(email, persistentEmail); //copy across data in the properties
+                Mapper.Map<IPersistentEmail, IPersistentEmail>(email, persistentEmail);
                 count++;
             }
 

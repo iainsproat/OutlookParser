@@ -18,12 +18,16 @@ namespace EmailVisualiser.Models
         public event Action<string> PathToPstFilesUpdated;
         public event Action<IEnumerable<Email>> FoundEmails;
 
-        public AddAdditionalDataModel(DataStorage storage)
+        static AddAdditionalDataModel()
         {
-            this._data = storage;
             Mapper.CreateMap<Email, IPersistentEmail>()
                 .ForMember(dest => dest.ReceivedTime, opt => opt.MapFrom(src => src.ReceivedTime))
                 .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject));
+        }
+
+        public AddAdditionalDataModel(DataStorage storage)
+        {
+            this._data = storage;
         }
 
         protected void RaisePathToPstFilesUpdated(string path)
