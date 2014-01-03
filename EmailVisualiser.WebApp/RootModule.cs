@@ -24,6 +24,10 @@ namespace EmailVisualiser.WebApp
                 {
                     return Response.AsCss("Content/" + parameters.File as string);
                 };
+            Get["/data/{File}"] = parameters =>
+                {
+                    return Response.AsFile("Data/" + parameters.File as string + ".json");
+                };
         }
     }
 }

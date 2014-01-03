@@ -57,18 +57,24 @@
 
     <!-- Chart script -->
     <script>
+        d3.json("data/graphData.json", function (error, json) {
+            if (error) {
+                return console.warn(error);
+            }
 
-        var graph = new Rickshaw.Graph({
-            element: $("#chart")[0],
-            width: 235,
-            height: 85,
-            renderer: 'bar',
-            series: [{
-                data: [{ x: 0, y: 40 }, { x: 1, y: 49 }, { x: 2, y: 38 }, { x: 3, y: 30 }, { x: 4, y: 32 }],
-                color: 'steelblue'
-            }]
+            var graph = new Rickshaw.Graph({
+                element: $("#chart")[0],
+                width: 235,
+                height: 85,
+                renderer: 'bar',
+                series: [{
+                    data: json,
+                    color: 'steelblue'
+                }]
+            });
+
+            graph.render();
         });
-        graph.render();
 
     </script>
 </body>
