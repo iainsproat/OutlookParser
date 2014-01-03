@@ -18,15 +18,7 @@
 	opacity: 1;
 }
 .rickshaw_graph .detail .x_label {
-	font-family: Arial, sans-serif;
-	border-radius: 3px;
-	padding: 6px;
-	opacity: 0.5;
-	border: 1px solid #e0e0e0;
-	font-size: 12px;
-	position: absolute;
-	background: white;
-	white-space: nowrap;
+	display:none
 }
 .rickshaw_graph .detail .x_label.left {
 	left: 0;
