@@ -22,7 +22,7 @@ namespace EmailVisualiser.WebApp
             Post["/all"] = parameters =>
                 {
                     data.DeleteAll();
-                    return Response.AsRedirect("~/", type: Nancy.Responses.RedirectResponse.RedirectType.SeeOther);
+                    return Response.AsRedirect("~/");
                 };
         }
     }
