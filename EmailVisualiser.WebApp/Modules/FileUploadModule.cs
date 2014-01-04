@@ -37,7 +37,15 @@ namespace EmailVisualiser.WebApp
                     addAdditionalDataModel.ParsePathToPstFiles(fileLocationOnServer);
 
                     fileDetails.Add(string.Format("{0} ({1}) {2}bytes", file.Name, file.ContentType, file.Value.Length));
-                    //TODO dispose of the file after use (?)
+
+                    try
+                    {
+                        File.Delete(fileLocationOnServer);
+                    }
+                    catch
+                    {
+                        //FIXME empty - we'll just leave the file for now!
+                    }
                 }
 
                 var model = new FileUploadModel();
