@@ -17,7 +17,7 @@ namespace EmailVisualiser.WebApp
             Get["/"] = parameters =>
                 {
                     DataStorage data = new DataStorage();
-                    return View["pulse.cshtml", new PulseModel(data)];
+                    return View["pulse", new PulseModel(data)];
                 };
             Get["/js/{File}"] = parameters =>
                 {

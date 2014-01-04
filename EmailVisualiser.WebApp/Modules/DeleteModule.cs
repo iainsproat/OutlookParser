@@ -16,7 +16,7 @@ namespace EmailVisualiser.WebApp
         {
             Get["/"] = parameters =>
                 {
-                    return View["delete.cshtml"];
+                    return View["delete"];
                 };
 
             Post["/all"] = parameters =>

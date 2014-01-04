@@ -15,7 +15,7 @@ namespace EmailVisualiser.WebApp
         {
             Get["/"] = parameters =>
                 {
-                    return View["FileUpload.cshtml", new FileUploadModel()];
+                    return View["FileUpload", new FileUploadModel()];
                 };
 
             Post["/"] = x =>
@@ -42,7 +42,7 @@ namespace EmailVisualiser.WebApp
 
                 var model = new FileUploadModel();
                 model.Posted = fileDetails;
-                return View["FileUpload.cshtml", model];
+                return View["FileUpload", model];
             };
         }
 
