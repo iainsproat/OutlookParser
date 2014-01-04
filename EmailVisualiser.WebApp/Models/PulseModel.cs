@@ -111,5 +111,13 @@ namespace EmailVisualiser.WebApp.Models
                 return this._data.IncomingEmails.Sum(e => e.Attachments);
             }
         }
+
+        public int NumberOfInternalAttachments
+        {
+            get
+            {
+                return this._data.InternalEmails.Sum(e => e.Attachments);
+            }
+        }
     }
 }

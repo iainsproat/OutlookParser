@@ -6,24 +6,39 @@
     <h1>What's been happening?</h1>
     <p>This page provides you with a summary of activity on your project.</p>
 </div>
-@if (Model.TotalNumberOfEmails > 0) {
-<p><strong>@Model.EarliestDate</strong> - <strong>@Model.LatestDate</strong></p>
-<p><strong>@Model.NumberOfInternalSenders</strong> colleagues have sent <strong>@Model.NumberOfOutgoingEmails</strong> emails to <strong>@Model.NumberOfExternalRecipients</strong> recipients.
-      In return they have received <strong>@Model.NumberOfIncomingEmails</strong> emails from <strong>@Model.NumberOfExternalSenders</strong> external individuals, and sent <strong>@Model.NumberOfInternalEmails</strong> emails amongst themselves.
-      In all, <strong>@Model.NumberOfOutgoingAttachments</strong> email attachments have been sent, and <strong>@Model.NumberOfIncomingAttachments</strong> email attachments have been received.</p>
-<div>
-    Placeholder for graph of internal email senders along the x-axis and number of emails sent along the y-axis.
-</div>
-<div>
-    Placeholder for list of top ten email conversations. (i.e. conversations with the most individual emails)
-</div>
+@if (Model.TotalNumberOfEmails > 0)
+{
+    <div class="col-sm-12">
+        <strong>@Model.EarliestDate</strong> - <strong>@Model.LatestDate</strong>
+    </div>
+    <div class="col-sm-6">
+        <strong>@Model.NumberOfInternalSenders</strong> of your colleagues have sent <strong>@Model.NumberOfOutgoingEmails</strong> emails to <strong>@Model.NumberOfExternalRecipients</strong> external recipients.
+        In return they have received <strong>@Model.NumberOfIncomingEmails</strong> emails from <strong>@Model.NumberOfExternalSenders</strong> individuals.
+        Internally we have sent <strong>@Model.NumberOfInternalEmails</strong> emails to each other.
+        In all, <strong>@Model.NumberOfOutgoingAttachments</strong> email attachments have been sent externally and <strong>@Model.NumberOfIncomingAttachments</strong> email attachments have been received.
+        <strong>@Model.NumberOfInternalAttachments</strong> attachments were sent internally.
+    </div>
+    <div class="col-sm-6">
+        Placeholder for graph of internal email senders along the x-axis and number of emails sent along the y-axis.
+    </div>
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Busiest Conversations
+                </h3>
+            </div>
+            <div class="panel-body">
+                Placeholder for list of top ten email conversations. (i.e. conversations with the most individual emails)
+            </div>
+        </div>
+    </div>
 }
 else
 {
     <p>There are no emails in the database, please <a href="FileUpload">upload</a> some.</p>
 }
-<ul>
-   <li><a href="FileUpload">Upload more data</a></li>
-   <li><a href="graphs">Graphs</a></li>
-   <li><a href="delete">Delete the data</a></li>
-</ul>
+<div class="col-sm-12">
+    <a class="btn btn-xs btn-warning" href="FileUpload">Upload more data</a>
+    <a class="btn btn-xs btn-danger" href="delete">Delete all the data</a>
+</div>

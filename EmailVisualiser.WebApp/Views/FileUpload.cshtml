@@ -5,18 +5,19 @@
 <div class="page-header">
     <h1>File Upload</h1>
 </div>
+<div class="alert alert-warning">
+    <strong>Warning!</strong> Only use this if you know what you are doing!
+</div>
 
-@if(Model.Posted != null && Model.Posted.Count > 0){
-    <p>You have uploaded the following files:</p>
-    <ul>
-        @foreach (var fileDetail in Model.Posted)
-        {
-            <li>@fileDetail</li>
-        }
-    </ul>
+@if (Model.Posted != null && Model.Posted.Count > 0)
+{
+    @foreach (var fileDetail in Model.Posted)
+    {
+        <div class="alert alert-success"><strong>Successful upload!</strong> @fileDetail</div>
+    }
 }
 
 <form action='@Url.Content("~/FileUpload")' method="post" enctype="multipart/form-data">
-    <input type="file" name="file[]" multiple>
-    <input type="submit">
+    <input type="file" name="file[]" multiple />
+    <input type="submit" class="btn btn-primary" />
 </form>
