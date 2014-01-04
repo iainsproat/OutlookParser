@@ -2,66 +2,12 @@
     Layout = "Shared/_Layout.cshtml";
 }
 
-@section PageStyles {
-    <!-- Rickshaw Graph styles -->
-    <link type="text/css" rel="stylesheet" href="css/graph.css">
-    <link type="text/css" rel="stylesheet" href="css/graphdetail.css">
-}
-
 <div class="page-header">
-    <h1>Email Over Time</h1>
+    <h1>Main Menu</h1>
 </div>
 <p>There are @Model.NumberOfExistingEmails emails stored in the database.</p>
-<div id="chart"></div>
-
-@section PageScripts {
-
-    <!-- Rickshaw and d3 -->
-    <script src="js/d3.v3.js"></script>
-    <script src="js/rickshaw.js"></script>
-
-    <!-- Chart script -->
-    <script>
-        d3.json("data/graphData.json", function (error, json) {
-            if (error) {
-                return console.warn(error);
-            }
-
-            var graph = new Rickshaw.Graph({
-                element: $("#chart")[0],
-                width: 400,
-                height: 200,
-                renderer: 'bar',
-                series: [{
-                    name: 'emails per day',
-                    data: json,
-                    color: 'steelblue'
-                }]
-            });
-
-            var dateFormatter = function (x) { return new Date(x * 1000).toLocaleDateString() };
-            new Rickshaw.Graph.Axis.Time({
-                graph: graph
-           });
-
-            new Rickshaw.Graph.HoverDetail({
-                graph: graph,
-               formatter: function (series, x, y) {
-                    var date = '<span class="date">' + dateFormatter(x) + '</span>';
-                    var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
-                    var content = swatch + series.name + ": " + parseInt(y) + '<br>' + date;
-                    return content;
-                }
-            });
-
-            new Rickshaw.Graph.Axis.Y({
-                graph: graph,
-                orientation: 'left',
-                tickFormat: Rickshaw.Fixtures.Number.formatKMBT
-            });
-
-            graph.render();
-        });
-
-    </script>
-}
+<ul>
+   <li><a href="upload">Upload more data</a></li>
+   <li><a href="analysis">Analyse the data</a></li>
+   <li><a href="delete/all">Delete the data</a></li>
+</ul>
