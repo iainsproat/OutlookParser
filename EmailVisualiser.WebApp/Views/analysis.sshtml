@@ -1,26 +1,27 @@
-﻿@{
-    Layout = "Shared/_Layout.cshtml";
-}
+﻿@Master['Shared/_Layout']
+
+@Section['Body']
 <div class="page-header">
     <h1>Analysis</h1>
 </div>
 <div id="chart"></div>
+@EndSection
 
-@section PageStyles {
+@Section['PageStyles']
     <!-- Rickshaw Graph styles -->
-    <link type="text/css" rel="stylesheet" href='@Url.Content("~/css/graph.css")'>
-    <link type="text/css" rel="stylesheet" href='@Url.Content("~/css/graphdetail.css")'>
-}
+    <link type="text/css" rel="stylesheet" href='/css/graph.css'>
+    <link type="text/css" rel="stylesheet" href='/css/graphdetail.css'>
+@EndSection
 
-@section PageScripts {
+@Section['PageScripts']
 
     <!-- Rickshaw and d3 -->
-    <script src='@Url.Content("~/js/d3.v3.js")'></script>
-    <script src='@Url.Content("~/js/rickshaw.js")'></script>
+    <script src='/js/d3.v3.js'></script>
+    <script src='/js/rickshaw.js'></script>
 
     <!-- Chart script -->
     <script>
-        d3.json('@Url.Content("~/analysis/data")', function (error, json) {
+        d3.json('/analysis/data', function (error, json) {
             if (error) {
                 return console.warn(error);
             }
@@ -62,4 +63,4 @@
         });
 
     </script>
-}
+@EndSection

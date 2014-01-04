@@ -1,7 +1,6 @@
-﻿@{
-    Layout = "Shared/_Layout.cshtml";
-}
+﻿@Master['Shared/_Layout']
 
+@Section['Body']
 <div class="panel panel-danger">
     <div class="panel-heading">
         <div class="panel-title">
@@ -13,6 +12,7 @@
     </div>
 </div>
 
-<form method="post" action='@Url.Content("~/delete/all")'>
+<form method="post" action='/delete/all'>
     <button type="submit" class="btn btn-lg btn-danger" >Delete All</button>
 </form>
+@EndSection

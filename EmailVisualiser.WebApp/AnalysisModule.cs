@@ -16,7 +16,7 @@ namespace EmailVisualiser.WebApp
         {
             Get["/"] = parameters =>
             {
-                return View["analysis.cshtml"];
+                return View["analysis"];
             };
 
             Get["/data"] = parameters => //TODO no need to refer to a file anymore!

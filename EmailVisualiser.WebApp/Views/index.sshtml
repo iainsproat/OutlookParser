@@ -1,6 +1,6 @@
-﻿@{
-    Layout = "Shared/_Layout.cshtml";
-}
+﻿@Master['Shared/_Layout']
+
+@Section['Body']
 
 <div class="jumbotron">
     <h1>Let's read some emails!</h1>
@@ -12,3 +12,4 @@
    <li><a href="analysis">Analyse the data</a></li>
    <li><a href="delete">Delete the data</a></li>
 </ul>
+@EndSection

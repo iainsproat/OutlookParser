@@ -65,13 +65,13 @@
     <None Include="Scripts\jquery-1.9.1.min.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Views\analysis.cshtml" />
-    <None Include="Views\delete.cshtml" />
-    <None Include="Views\FileUpload.cshtml" />
-    <None Include="Views\index.cshtml">
+    <None Include="Views\analysis.sshtml" />
+    <None Include="Views\delete.sshtml" />
+    <None Include="Views\FileUpload.sshtml" />
+    <None Include="Views\index.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Shared\_Layout.cshtml">
+    <None Include="Views\Shared\_Layout.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="web.config" />

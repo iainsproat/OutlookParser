@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <!-- Bootstrap -->
-    <link href='@Url.Content("~/css/bootstrap.css")' rel="stylesheet" type="text/css"/>
-    ><!-- Bootstrap Theme -->
-    <link href='@Url.Content("~/css/bootstrap-theme.css")' rel="stylesheet" type="text/css"/>
-    ><!-- Custom styles for this template -->
-    <link href='@Url.Content("~/css/theme.css")' rel="stylesheet" type="text/css"/>
-    @RenderSection("PageStyles", required: false)
+    <link href='/css/bootstrap.css' rel="stylesheet" type="text/css"/>
+    <!-- Bootstrap Theme -->
+    <link href='/css/bootstrap-theme.css' rel="stylesheet" type="text/css"/>
+    <!-- Custom styles for this template -->
+    <link href='/css/theme.css' rel="stylesheet" type="text/css"/>
+    @Section['PageStyles']
 
-    ><!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -30,25 +30,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href='@Url.Content("~/")'>Email Visualiser</a>
+                <a class="navbar-brand" href='/'>Email Visualiser</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href='@Url.Content("~/")'>Home</a></li>
+                    <li class="active"><a href='/'>Home</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="container">
-        @RenderBody()
+        @Section['Body']
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src='@Url.Content("~/js/jquery-1.9.1.js")'></script>
+    <script src='/js/jquery-1.9.1.js'></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src='@Url.Content("~/js/bootstrap.js")'></script>
+    <script src='/js/bootstrap.js'></script>
 
-    @RenderSection("PageScripts", required: false)
+    @Section['PageScripts']
 </body>
 </html>

@@ -1,0 +1,22 @@
+﻿@Master['Shared/_Layout']
+
+@Section['Body']
+<div class="page-header">
+    <h1>File Upload</h1>
+</div>
+
+@If.HasPosted
+    <p>You have uploaded the following files:</p>
+    <ul>
+        @Each.Posted
+            <li>@Current</li>
+        @EndEach
+    </ul>
+@EndIf
+
+<form action='/FileUpload' method="post" enctype="multipart/form-data">
+    <input type="file" name="file[]" multiple>
+    <input type="submit">
+</form>
+
+@EndSection
