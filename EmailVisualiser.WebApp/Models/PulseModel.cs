@@ -119,5 +119,39 @@ namespace EmailVisualiser.WebApp.Models
                 return this._data.InternalEmails.Sum(e => e.Attachments);
             }
         }
+
+        public IEnumerable<Tuple<string, int>> InternalCountPerSender()
+        {
+            var internalEmailsGroupedBySender = this._data.InternalEmails.GroupBy(e => e.Sender)
+                .OrderByDescending(grp => grp.Count());
+
+            return internalEmailsGroupedBySender.Select(grp =>
+            {
+                return new Tuple<string, int>(grp.Key, grp.Count());
+            });
+        }
+
+        public IEnumerable<Tuple<string, int>> OutgoingCountPerSender()
+        {
+            var outgoingEmailsGroupedBySender = this._data.OutgoingEmails.GroupBy(e => e.Sender)
+                .OrderByDescending(grp => grp.Count());
+            
+            return outgoingEmailsGroupedBySender.Select(grp =>
+            {
+                return new Tuple<string, int>(grp.Key, grp.Count());
+            });
+        }
+
+
+        public IEnumerable<string> BusiestConversations
+        {
+            get
+            {
+                var convos = this._data.AllEmails.GroupBy(e => e.Subject)
+                    .OrderByDescending(grp => grp.Count());
+
+                return convos.Take(10).Select(e => e.Key);
+            }
+        }
     }
 }

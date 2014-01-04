@@ -2,34 +2,100 @@
     Layout = "Shared/_Layout.cshtml";
 }
 
+@section PageStyles {
+    <!-- Rickshaw Graph styles -->
+    <link type="text/css" rel="stylesheet" href='@Url.Content("~/css/graph.css")'>
+    <link type="text/css" rel="stylesheet" href='@Url.Content("~/css/graphdetail.css")'>
+}
+
+@section PageScripts {
+
+    <!-- Rickshaw and d3 -->
+    <script src='@Url.Content("~/js/d3.v3.js")'></script>
+    <script src='@Url.Content("~/js/rickshaw.js")'></script>
+
+    <!-- Chart script -->
+    <script>
+        d3.json('@Url.Content("~/data/SentEmailCount_per_user")', function (error, json) {
+            if (error) {
+                return console.warn(error);
+            }
+
+            var graph = new Rickshaw.Graph({
+                element: $("#chart")[0],
+                width: 300,
+                height: 150,
+                renderer: 'bar',
+                series: [{
+                    name: 'Outgoing emails sent',
+                    data: json,
+                    color: 'lightblue'
+                }]
+            });
+
+            var xAxisTickFormat = function (x) {
+                return json[x].xAxisName;
+            };
+
+            new Rickshaw.Graph.HoverDetail({
+                graph: graph,
+                formatter: function (series, x, y) {
+                    var xAxisName = '<span>' + xAxisTickFormat(x) + '</span>';
+                    var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
+                    var content = swatch + series.name + ": " + parseInt(y) + '<br>' + xAxisName;
+                    return content;
+                }
+            });
+
+            new Rickshaw.Graph.Axis.Y({
+                graph: graph,
+                orientation: 'left',
+                tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+            });
+
+            graph.render();
+        });
+
+    </script>
+}
+
 <div class="jumbotron">
-    <h1>What's been happening?</h1>
+    <h1>Project Summary</h1>
     <p>This page provides you with a summary of activity on your project.</p>
 </div>
 @if (Model.TotalNumberOfEmails > 0)
 {
+    <div class="page-header">
+        <h2><strong>@Model.EarliestDate</strong> - <strong>@Model.LatestDate</strong></h2>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <strong>@Model.NumberOfInternalSenders</strong> of your colleagues sent <strong>@Model.NumberOfOutgoingEmails</strong> emails to <strong>@Model.NumberOfExternalRecipients</strong> external recipients.
+            In return they received <strong>@Model.NumberOfIncomingEmails</strong> emails from <strong>@Model.NumberOfExternalSenders</strong> individuals.
+            Internally we sent <strong>@Model.NumberOfInternalEmails</strong> emails to each other.
+            In all, <strong>@Model.NumberOfOutgoingAttachments</strong> email attachments were sent to external recipients and <strong>@Model.NumberOfIncomingAttachments</strong> attachments were received from them.
+            We sent <strong>@Model.NumberOfInternalAttachments</strong> attachments to each other internally.
+        </div>
+        <div class="col-sm-6">
+            <div id="chart" />
+        </div>
+    </div>
     <div class="col-sm-12">
-        <strong>@Model.EarliestDate</strong> - <strong>@Model.LatestDate</strong>
-    </div>
-    <div class="col-sm-6">
-        <strong>@Model.NumberOfInternalSenders</strong> of your colleagues have sent <strong>@Model.NumberOfOutgoingEmails</strong> emails to <strong>@Model.NumberOfExternalRecipients</strong> external recipients.
-        In return they have received <strong>@Model.NumberOfIncomingEmails</strong> emails from <strong>@Model.NumberOfExternalSenders</strong> individuals.
-        Internally we have sent <strong>@Model.NumberOfInternalEmails</strong> emails to each other.
-        In all, <strong>@Model.NumberOfOutgoingAttachments</strong> email attachments have been sent externally and <strong>@Model.NumberOfIncomingAttachments</strong> email attachments have been received.
-        <strong>@Model.NumberOfInternalAttachments</strong> attachments were sent internally.
-    </div>
-    <div class="col-sm-6">
-        Placeholder for graph of internal email senders along the x-axis and number of emails sent along the y-axis.
-    </div>
-    <div class="col-sm-12">
-        <div class="panel panel-primary">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Busiest Conversations
                 </h3>
             </div>
             <div class="panel-body">
-                Placeholder for list of top ten email conversations. (i.e. conversations with the most individual emails)
+                <ul class="list-group">
+                    @foreach (var convo in Model.BusiestConversations)
+                    {
+                        <li class="list-group-item">
+                            @convo
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </div>

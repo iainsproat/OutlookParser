@@ -12,12 +12,16 @@ namespace EmailVisualiser.WebApp
 {
     public class PulseModule : NancyModule
     {
+        private readonly DataStorage _data;
+        private readonly PulseModel _model;
         public PulseModule()
         {
+            this._data = new DataStorage();
+            this._model = new PulseModel(this._data);
+
             Get["/"] = parameters =>
                 {
-                    DataStorage data = new DataStorage();
-                    return View["pulse", new PulseModel(data)];
+                    return View["pulse", this._model];
                 };
             Get["/js/{File}"] = parameters =>
                 {
@@ -26,7 +30,23 @@ namespace EmailVisualiser.WebApp
             Get["/css/{File}"] = parameters =>
                 {
                     return Response.AsCss("Content/" + parameters.File as string);
-                };            
+                };
+            Get["/data/SentEmailCount_per_user"] = parameters =>
+                {
+                    var outgoingCounts = this._model.OutgoingCountPerSender();
+                    int i = 0;
+                    return Response.AsJson(outgoingCounts.Select(uc =>
+                    {                        
+                        var temp = new
+                        {
+                            x = i,
+                            xAxisName = uc.Item1,
+                            y = uc.Item2
+                        };
+                        i++;
+                        return temp;
+                    }));
+                };
         }
     }
 }
