@@ -121,6 +121,17 @@ namespace EmailVisualiser.Data
             		get { return GetRelatedProperty<System.DateTime>("ReceivedTime"); }
             		set { SetRelatedProperty("ReceivedTime", value); }
     	}
+    
+    	public System.String Sender
+    	{
+            		get { return GetRelatedProperty<System.String>("Sender"); }
+            		set { SetRelatedProperty("Sender", value); }
+    	}
+    	public System.Collections.Generic.ICollection<System.String> Recipients
+    	{
+    		get { return GetRelatedLiteralPropertiesCollection<System.String>("Recipients"); }
+    		set { SetRelatedLiteralPropertiesCollection<System.String>("Recipients", value); }
+    	}
     	#endregion
     }
 }

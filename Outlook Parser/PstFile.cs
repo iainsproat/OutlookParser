@@ -120,9 +120,7 @@ namespace OutlookParser
                 {
                     Outlook.MailItem mailItem = item as Outlook.MailItem;
 
-                    mailItems.Add(new Email() { 
-                        Subject = mailItem.Subject, 
-                        ReceivedTime = mailItem.ReceivedTime });
+                    mailItems.Add(MapToEmail(mailItem));
                 }
             }
 
@@ -130,6 +128,21 @@ namespace OutlookParser
             {
                 ExtractItems(mailItems, subfolder);
             }
+        }
+
+        protected Email MapToEmail(Outlook.MailItem mailItem)
+        {
+            var email = new Email();
+            email.Subject = mailItem.Subject;
+            email.ReceivedTime = mailItem.ReceivedTime;
+            email.Sender = mailItem.SenderEmailAddress;
+            email.Recipients = new List<string>(mailItem.Recipients.Count);
+            foreach(Outlook.Recipient recipient in mailItem.Recipients)
+            {
+                email.Recipients.Add(recipient.Address);
+            }
+
+            return email;
         }
 
         private void ConnectAndLoad()

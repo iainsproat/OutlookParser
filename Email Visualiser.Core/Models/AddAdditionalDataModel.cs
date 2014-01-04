@@ -22,7 +22,9 @@ namespace EmailVisualiser.Models
         {
             Mapper.CreateMap<Email, IPersistentEmail>()
                 .ForMember(dest => dest.ReceivedTime, opt => opt.MapFrom(src => src.ReceivedTime))
-                .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject));
+                .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
+                .ForMember(dest => dest.Sender, opt => opt.MapFrom(src => src.Subject))
+                .ForMember(dest => dest.Recipients, opt => opt.MapFrom(src => src.Recipients));
         }
 
         public AddAdditionalDataModel(DataStorage storage)
@@ -121,7 +123,7 @@ namespace EmailVisualiser.Models
         {
             get
             {
-                return this._data.Count;
+                return this._data.TotalNumberOfEmails;
             }
         }
     }

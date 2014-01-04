@@ -53,7 +53,7 @@ namespace EmailVisualiser.Models
         {
             get
             {
-                int count = this._data.Count;
+                int count = this._data.TotalNumberOfEmails;
                 this.RaiseEmailsCounted(count);
                 return count;
             }

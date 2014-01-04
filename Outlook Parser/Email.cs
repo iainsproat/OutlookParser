@@ -10,5 +10,7 @@ namespace OutlookParser
     {
         public string Subject { get; set; }
         public DateTime ReceivedTime { get; set; }
+        public string Sender { get; set; }
+        public IList<string> Recipients { get; set; }
     }
 }
