@@ -23,7 +23,7 @@ namespace EmailVisualiser.Models
             Mapper.CreateMap<Email, IPersistentEmail>()
                 .ForMember(dest => dest.ReceivedTime, opt => opt.MapFrom(src => src.ReceivedTime))
                 .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
-                .ForMember(dest => dest.Sender, opt => opt.MapFrom(src => src.Subject))
+                .ForMember(dest => dest.Sender, opt => opt.MapFrom(src => src.Sender))
                 .ForMember(dest => dest.Recipients, opt => opt.MapFrom(src => src.Recipients))
                 .ForMember(dest => dest.Attachments, opt => opt.MapFrom(src => src.Attachments));
         }
@@ -114,6 +114,7 @@ namespace EmailVisualiser.Models
             var emailsToStore = parsedEmails.Select(email => {
                     return Mapper.Map<Email, IPersistentEmail>(email);
                 });
+
             int numberOfEmailsStored = this._data.Save(emailsToStore);
             Console.WriteLine("Stored all {0} emails from file: {1}", numberOfEmailsStored, pstFile.Path);
 

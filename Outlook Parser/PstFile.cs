@@ -76,7 +76,7 @@ namespace OutlookParser
         {
             get
             {
-                if(!_connected || this._application == null || this._store == null)
+                if (!_connected || this._application == null || this._store == null)
                 {
                     this.ConnectAndLoad();
                 }
@@ -135,16 +135,83 @@ namespace OutlookParser
             var email = new Email();
             email.Subject = mailItem.Subject;
             email.ReceivedTime = mailItem.ReceivedTime;
-            email.Sender = mailItem.SenderEmailAddress;
+            email.Sender = this.GetSenderSMTPAddress(mailItem);
             email.Recipients = new List<string>(mailItem.Recipients.Count);
-            foreach(Outlook.Recipient recipient in mailItem.Recipients)
+            foreach (Outlook.Recipient recipient in mailItem.Recipients)
             {
-                email.Recipients.Add(recipient.Address);
+                email.Recipients.Add(this.GetRecipientSMTPAddress(recipient));
             }
 
             email.Attachments = mailItem.Attachments.Count;
-
             return email;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <returns></returns>
+        /// <remarks>Code from http://msdn.microsoft.com/en-us/library/ff184624(v=office.14).aspx </remarks>
+        protected string GetSenderSMTPAddress(Outlook.MailItem mail)
+        {
+            if (mail == null)
+            {
+                throw new ArgumentNullException("mail");
+            }
+
+            if (mail.SenderEmailType != "EX")
+            {
+                return mail.SenderEmailAddress;
+            }
+
+            Outlook.AddressEntry sender = mail.Sender;
+            if (sender == null)
+            {
+                return string.Empty;
+            }
+
+            if (sender.AddressEntryUserType == Outlook.OlAddressEntryUserType.olExchangeUserAddressEntry
+                || sender.AddressEntryUserType == Outlook.OlAddressEntryUserType.olExchangeRemoteUserAddressEntry)
+            {
+                Outlook.ExchangeUser exchUser = sender.GetExchangeUser();
+                if (exchUser != null)
+                {
+                    return exchUser.PrimarySmtpAddress;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            else
+            {
+                return this.GetSMTPAddressUsingPropertyAccessor(sender.PropertyAccessor);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="recip"></param>
+        /// <returns></returns>
+        /// <remarks>Code from http://msdn.microsoft.com/en-us/library/ff184647(v=office.14).aspx </remarks>
+        private string GetRecipientSMTPAddress(Outlook.Recipient recip)
+        {
+            return this.GetSMTPAddressUsingPropertyAccessor(recip.PropertyAccessor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pa"></param>
+        /// <returns></returns>
+        /// <remarks>Code from http://msdn.microsoft.com/en-us/library/ff184647(v=office.14).aspx </remarks>
+        private string GetSMTPAddressUsingPropertyAccessor(Outlook.PropertyAccessor pa)
+        {
+            const string PR_SMTP_ADDRESS =
+                "http://schemas.microsoft.com/mapi/proptag/0x39FE001E";
+            return pa.GetProperty(PR_SMTP_ADDRESS).ToString();
         }
 
         private void ConnectAndLoad()

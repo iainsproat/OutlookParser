@@ -20,7 +20,7 @@ namespace EmailVisualiser.Data
                 .ForMember(dest => dest.ReceivedTime, opt => opt.MapFrom(src => src.ReceivedTime))
                 .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
                 .ForMember(dest => dest.Sender, opt => opt.MapFrom(src => src.Sender))
-                .ForMember(dest => dest.Recipients, opt => opt.MapFrom(src => src.Recipients))
+                .ForMember(dest => dest.Recipients, opt => opt.MapFrom(src => new List<string>(src.Recipients))) //FIXME - this line is flawed...
                 .ForMember(dest => dest.Attachments, opt => opt.MapFrom(src => src.Attachments));
         }
 
@@ -42,7 +42,15 @@ namespace EmailVisualiser.Data
             foreach (IPersistentEmail email in emails)
             {
                 IPersistentEmail persistentEmail = ctx.PersistentEmails.Create();
-                Mapper.Map<IPersistentEmail, IPersistentEmail>(email, persistentEmail);
+                //Mapper.Map<IPersistentEmail, IPersistentEmail>(email, persistentEmail); //FIXME - this does not correctly copy across the Recipient property
+
+                //HACK the below properties are manually mapped, as there is a problem with AutoMapper correctly transferring the Recipients ICollection property
+                persistentEmail.ReceivedTime = email.ReceivedTime;
+                persistentEmail.Subject = email.Subject;
+                persistentEmail.Sender = email.Sender;
+                persistentEmail.Attachments = email.Attachments;
+                persistentEmail.Recipients = new List<string>(email.Recipients);
+
                 count++;
             }
 
@@ -139,6 +147,11 @@ namespace EmailVisualiser.Data
 
         protected bool IsInternalEmailAddress(string emailAddress)
         {
+            if(emailAddress == null)
+            {
+                emailAddress = string.Empty; //prevent any nasty ArgumentNullExceptions
+            }
+
             return Regex.IsMatch(emailAddress, pattern);
         }
 
