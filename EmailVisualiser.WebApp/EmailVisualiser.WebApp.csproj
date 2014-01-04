@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisModule.cs" />
+    <Compile Include="FileUploadModule.cs" />
+    <Compile Include="Models\FileUploadModel.cs" />
     <Compile Include="RootModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +65,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Views\analysis.cshtml" />
+    <None Include="Views\FileUpload.cshtml" />
     <None Include="Views\index.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
