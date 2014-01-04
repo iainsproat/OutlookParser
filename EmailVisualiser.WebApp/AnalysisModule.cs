@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using EmailVisualiser.Analysis;
+using EmailVisualiser.Models;
 using Nancy;
 
 namespace EmailVisualiser.WebApp
 {
     public class AnalysisModule : NancyModule
     {
-        public AnalysisModule(DataAnalysisEngine analysisEngine)
+        public AnalysisModule(DataVisualisationModel model)
             : base("/analysis")
         {
             Get["/"] = parameters =>
@@ -21,7 +21,7 @@ namespace EmailVisualiser.WebApp
 
             Get["/data"] = parameters => //TODO no need to refer to a file anymore!
             {
-                var dailyEmails = analysisEngine.GetEmailDailyCountSortedByDate();
+                var dailyEmails = model.GetEmailDailyCountSortedByDate();
                 return Response.AsJson(dailyEmails.Select(dailyEmail =>
                 {
                     return new
