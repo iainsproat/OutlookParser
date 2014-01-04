@@ -5,19 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 using EmailVisualiser.Data;
-using EmailVisualiser.Models;
+using EmailVisualiser.WebApp.Models;
 using Nancy;
 
 namespace EmailVisualiser.WebApp
 {
-    public class RootModule : NancyModule
+    public class PulseModule : NancyModule
     {
-        public RootModule()
+        public PulseModule()
         {
             Get["/"] = parameters =>
                 {
                     DataStorage data = new DataStorage();
-                    return View["index.cshtml", new MainMenuModel(data)];
+                    return View["pulse.cshtml", new PulseModel(data)];
                 };
             Get["/js/{File}"] = parameters =>
                 {

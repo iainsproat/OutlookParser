@@ -29,7 +29,7 @@ namespace EmailVisualiser.Data
         /// </summary>
         /// <param name="emails"></param>
         /// <returns>The number of emails stored.</returns>
-        public int Store(IEnumerable<IPersistentEmail> emails)
+        public int Save(IEnumerable<IPersistentEmail> emails)
         {
             var ctx = this.NewContext();
 
@@ -71,6 +71,7 @@ namespace EmailVisualiser.Data
         {
             return ctx.PersistentEmails;
         }
+
 
         public int Count
         {

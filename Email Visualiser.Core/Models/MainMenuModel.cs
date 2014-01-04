@@ -59,6 +59,28 @@ namespace EmailVisualiser.Models
             }
         }
 
+        public DateTime EarliestDate
+        {
+            get
+            {
+                return this._data.AllEmails.Min(e =>
+                {
+                    return e.ReceivedTime;
+                });
+            }
+        }
+
+        public DateTime LatestDate
+        {
+            get
+            {
+                return this._data.AllEmails.Max(e =>
+                    {
+                        return e.ReceivedTime;
+                    });
+            }
+        }
+
         public void DeleteAllEmails()
         {
             this._data.DeleteAll();

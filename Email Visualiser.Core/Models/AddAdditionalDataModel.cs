@@ -111,7 +111,7 @@ namespace EmailVisualiser.Models
             var emailsToStore = parsedEmails.Select(email => {
                     return Mapper.Map<Email, IPersistentEmail>(email);
                 });
-            int numberOfEmailsStored = this._data.Store(emailsToStore);
+            int numberOfEmailsStored = this._data.Save(emailsToStore);
             Console.WriteLine("Stored all {0} emails from file: {1}", numberOfEmailsStored, pstFile.Path);
 
             return parsedEmails;

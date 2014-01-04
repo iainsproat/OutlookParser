@@ -43,11 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisModule.cs" />
-    <Compile Include="DeleteModule.cs" />
-    <Compile Include="FileUploadModule.cs" />
+    <Compile Include="Modules\GraphsModule.cs" />
+    <Compile Include="Modules\DeleteModule.cs" />
+    <Compile Include="Modules\FileUploadModule.cs" />
     <Compile Include="Models\FileUploadModel.cs" />
-    <Compile Include="RootModule.cs" />
+    <Compile Include="Models\PulseModel.cs" />
+    <Compile Include="Modules\PulseModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,10 +66,10 @@
     <None Include="Scripts\jquery-1.9.1.min.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Views\analysis.cshtml" />
+    <None Include="Views\graphs.cshtml" />
     <None Include="Views\delete.cshtml" />
     <None Include="Views\FileUpload.cshtml" />
-    <None Include="Views\index.cshtml">
+    <None Include="Views\pulse.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Views\Shared\_Layout.cshtml">

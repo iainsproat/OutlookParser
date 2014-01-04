@@ -12,11 +12,11 @@ namespace EmailVisualiser.WebApp
     public class AnalysisModule : NancyModule
     {
         public AnalysisModule(DataVisualisationModel model)
-            : base("/analysis")
+            : base("/graphs")
         {
             Get["/"] = parameters =>
             {
-                return View["analysis.cshtml"];
+                return View["graphs.cshtml"];
             };
 
             Get["/data"] = parameters => //TODO no need to refer to a file anymore!
