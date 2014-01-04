@@ -14,7 +14,7 @@ namespace EmailVisualiser.WebApp
         public DeleteModule(DataStorage data)
             :base("/delete")
         {
-            Get["/all"] = parameters =>
+            Get["/"] = parameters =>
                 {
                     return View["delete.cshtml"];
                 };
