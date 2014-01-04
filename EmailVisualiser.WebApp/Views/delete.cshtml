@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <div class="panel-title">
+            You are about to delete all records in the database!
+        </div>
+    </div>
+    <div class="panel-body">
+        Performing this action will delete everything from the database. This is an irrevocable action which cannot be undone.
+    </div>
+</div>
+
+<form method="post" action='@Url.Content("~/delete/all")'>
+    <button type="submit" class="btn btn-lg btn-danger" >Delete All</button>
+</form>

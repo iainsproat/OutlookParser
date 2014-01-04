@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
+using EmailVisualiser.Models;
 using EmailVisualiser.WebApp.Models;
 using Nancy;
 
@@ -9,7 +10,7 @@ namespace EmailVisualiser.WebApp
 {
     public class FileUploadModule : NancyModule
     {
-        public FileUploadModule(IRootPathProvider pathProvider)
+        public FileUploadModule(IRootPathProvider pathProvider, AddAdditionalDataModel addAdditionalDataModel)
             : base("/FileUpload")
         {
             Get["/"] = parameters =>
@@ -31,9 +32,11 @@ namespace EmailVisualiser.WebApp
 
                     string fileLocationOnServer = SaveFile(file, pathProvider);
                     //TODO check the file is valid
-                    fileDetails.Add(string.Format("{3} - {0} ({1}) {2}bytes", file.Name, file.ContentType, file.Value.Length, file.Key));
 
                     //TODO use the file
+                    addAdditionalDataModel.ParsePathToPstFiles(fileLocationOnServer);
+
+                    fileDetails.Add(string.Format("{3} - {0} ({1}) {2}bytes", file.Name, file.ContentType, file.Value.Length, file.Key));
                     //TODO dispose of the file after use (?)
                 }
 
@@ -45,14 +48,14 @@ namespace EmailVisualiser.WebApp
 
         protected string SaveFile(HttpFile file, IRootPathProvider pathProvider)
         {
-            var uploadDirectory = Path.Combine(pathProvider.GetRootPath(), "Content", "uploads"); //FIXME not user specific!
+            var uploadDirectory = Path.Combine(pathProvider.GetRootPath(), "Content", "uploads");
 
             if (!Directory.Exists(uploadDirectory))
             {
                 Directory.CreateDirectory(uploadDirectory);
             }
 
-            var filename = Path.Combine(uploadDirectory, file.Name); //FIXME 
+            var filename = Path.Combine(uploadDirectory, System.Guid.NewGuid().ToString() + file.Name); //HACK creates a unique file name by prepending a Guid
             using (FileStream fileStream = new FileStream(filename, FileMode.Create))
             {
                 file.Value.CopyTo(fileStream);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 
 using Nancy.Hosting.Self;
 
@@ -16,13 +17,30 @@ namespace EmailVisualiser.Server
             var host = new NancyHost(new Uri(startUrl));
 
             Console.WriteLine("Launching Email Visualiser.");
-            host.Start();
-            Console.WriteLine("Server has launched.");
-            Console.WriteLine("Launching browser...");
-            Process.Start(startUrl);
-            Console.WriteLine("Press any key to stop the server.");
-            Console.ReadLine();
-            host.Stop();
+            try
+            {
+                host.Start();
+                Console.WriteLine("Server has launched.");
+                Console.WriteLine("Launching browser...");
+                Process.Start(startUrl);
+                Console.WriteLine("Press any key to stop the server.");
+                Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+                TextWriter errorWriter = Console.Error; //TODO change to a logger
+                errorWriter.WriteLine("------An error has been encountered.------");
+                errorWriter.WriteLine(e.Message);
+#if DEBUG
+                errorWriter.WriteLine(e.InnerException);
+                errorWriter.WriteLine(e.StackTrace);
+#endif
+                errorWriter.WriteLine("------The application will now close.------");
+            }
+            finally
+            {
+                host.Stop();
+            }
         }
     }
 }

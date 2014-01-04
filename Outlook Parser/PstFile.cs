@@ -134,6 +134,7 @@ namespace OutlookParser
 
         private void ConnectAndLoad()
         {
+            //TODO use a new/temporary profile and other security measures
             this._application = new Outlook.Application();
             this._application.Session.AddStore(this.Path);
             Outlook.Stores stores = this._application.Session.Stores;

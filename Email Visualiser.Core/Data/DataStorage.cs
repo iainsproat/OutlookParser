@@ -55,6 +55,7 @@ namespace EmailVisualiser.Data
             }
 
             ctx.SaveChanges();
+            Console.WriteLine("You just deleted all the things! You crazy."); //TODO change to logging statement
         }
 
         public IEnumerable<IPersistentEmail> AllEmails

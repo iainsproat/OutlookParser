@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisModule.cs" />
+    <Compile Include="DeleteModule.cs" />
     <Compile Include="FileUploadModule.cs" />
     <Compile Include="Models\FileUploadModel.cs" />
     <Compile Include="RootModule.cs" />
@@ -65,6 +66,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Views\analysis.cshtml" />
+    <None Include="Views\delete.cshtml" />
     <None Include="Views\FileUpload.cshtml" />
     <None Include="Views\index.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -127,6 +129,10 @@
     <ProjectReference Include="..\Email Visualiser.Core\EmailVisualiser.Core.csproj">
       <Project>{b4b89d6e-da52-4a34-a1b6-85e1e72f39db}</Project>
       <Name>EmailVisualiser.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Outlook Parser\Outlook Parser.csproj">
+      <Project>{46bf3ac1-70ea-415e-b048-50b543581d67}</Project>
+      <Name>Outlook Parser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

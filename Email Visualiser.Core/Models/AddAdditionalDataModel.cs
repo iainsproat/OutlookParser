@@ -54,18 +54,18 @@ namespace EmailVisualiser.Models
             }
         }
 
-        public void ParsePathToPstFiles(string userPath)
+        public IEnumerable<Email> ParsePathToPstFiles(string userPath)
         {
             if (File.Exists(userPath))
             {
                 RaisePathToPstFilesUpdated(userPath);
                 Console.WriteLine("You provided a path to a single .Pst file.");
-                OpenStoreAndExtractMailItems(userPath);
+                return OpenStoreAndExtractMailItems(userPath);
             }
             else if (Directory.Exists(userPath))
             {
                 RaisePathToPstFilesUpdated(userPath);
-                FindAndProcessIndividualPstFiles(userPath);
+                return FindAndProcessIndividualPstFiles(userPath);
             }
             else
             {
@@ -73,7 +73,7 @@ namespace EmailVisualiser.Models
             }
         }
 
-        protected void FindAndProcessIndividualPstFiles(string userPath)
+        protected IEnumerable<Email> FindAndProcessIndividualPstFiles(string userPath)
         {
             string[] files = Directory.GetFiles(userPath, "*.pst", SearchOption.AllDirectories);
 
@@ -83,14 +83,22 @@ namespace EmailVisualiser.Models
             }
 
             Console.WriteLine("Found the following .pst files:");
+
+            IList<Email> extractedEmails = new List<Email>();
             foreach (string filePath in files)
             {
                 Console.WriteLine(filePath);
-                this.OpenStoreAndExtractMailItems(filePath);
+                IEnumerable<Email> parsedEmails = this.OpenStoreAndExtractMailItems(filePath);
+                foreach(var email in parsedEmails)
+                {
+                    extractedEmails.Add(email);
+                }
             }
+
+            return extractedEmails;
         }
 
-        protected void OpenStoreAndExtractMailItems(string userPath)
+        protected IEnumerable<Email> OpenStoreAndExtractMailItems(string userPath)
         {
             PstFile pstFile = new PstFile(userPath);
             IEnumerable<Email> parsedEmails = pstFile.AllItems;
@@ -99,14 +107,14 @@ namespace EmailVisualiser.Models
 
             RaiseFoundEmails(parsedEmails);
 
-            // persist emails
+            // persist emails in the database
             var emailsToStore = parsedEmails.Select(email => {
                     return Mapper.Map<Email, IPersistentEmail>(email);
                 });
-            this._data.Store(emailsToStore);
-            Console.WriteLine("Stored all emails");
+            int numberOfEmailsStored = this._data.Store(emailsToStore);
+            Console.WriteLine("Stored all {0} emails from file: {1}", numberOfEmailsStored, pstFile.Path);
 
-            Console.WriteLine("Have saved {0} emails", this.NumberOfExistingEmails);
+            return parsedEmails;
         }
 
         public int NumberOfExistingEmails
