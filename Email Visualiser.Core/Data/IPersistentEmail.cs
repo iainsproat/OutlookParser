@@ -12,5 +12,6 @@ namespace EmailVisualiser.Data
         DateTime ReceivedTime { get; set; }
         string Sender { get; set; }
         ICollection<string> Recipients { get; set; }
+        int Attachments { get; set; }
     }
 }

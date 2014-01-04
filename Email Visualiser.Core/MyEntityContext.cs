@@ -132,6 +132,12 @@ namespace EmailVisualiser.Data
     		get { return GetRelatedLiteralPropertiesCollection<System.String>("Recipients"); }
     		set { SetRelatedLiteralPropertiesCollection<System.String>("Recipients", value); }
     	}
+    
+    	public System.Int32 Attachments
+    	{
+            		get { return GetRelatedProperty<System.Int32>("Attachments"); }
+            		set { SetRelatedProperty("Attachments", value); }
+    	}
     	#endregion
     }
 }

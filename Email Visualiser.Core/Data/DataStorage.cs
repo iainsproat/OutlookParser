@@ -20,7 +20,8 @@ namespace EmailVisualiser.Data
                 .ForMember(dest => dest.ReceivedTime, opt => opt.MapFrom(src => src.ReceivedTime))
                 .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
                 .ForMember(dest => dest.Sender, opt => opt.MapFrom(src => src.Sender))
-                .ForMember(dest => dest.Recipients, opt => opt.MapFrom(src => src.Recipients));
+                .ForMember(dest => dest.Recipients, opt => opt.MapFrom(src => src.Recipients))
+                .ForMember(dest => dest.Attachments, opt => opt.MapFrom(src => src.Attachments));
         }
 
         protected MyEntityContext NewContext()
@@ -75,8 +76,7 @@ namespace EmailVisualiser.Data
         {
             get
             {
-                var ctx = this.NewContext();
-                return ctx.PersistentEmails.Where(e => IsOutgoingEmail(e));
+                return this.Where(IsOutgoingEmail);
             }
         }
 
@@ -84,8 +84,7 @@ namespace EmailVisualiser.Data
         {
             get
             {
-                var ctx = this.NewContext();
-                return ctx.PersistentEmails.Where(e => IsIncomingEmail(e));
+                return this.Where(IsIncomingEmail);
             }
         }
 
@@ -93,9 +92,24 @@ namespace EmailVisualiser.Data
         {
             get
             {
-                var ctx = this.NewContext();
-                return ctx.PersistentEmails.Where(e => IsInternalEmail(e));
+                return this.Where(IsInternalEmail);
             }
+        }
+
+        protected IEnumerable<IPersistentEmail> Where(Func<IPersistentEmail, bool> emailFilter)
+        {
+            var ctx = this.NewContext();
+            //BrightStarDb doesn't allow MethodCallExpressions (the Linq is converted to Sparql queries, so invoking the function doesn't seem to be possible), so we need to filter the hard way.
+            IList<IPersistentEmail> results = new List<IPersistentEmail>();
+            foreach (var email in ctx.PersistentEmails)
+            {
+                if (emailFilter(email))
+                {
+                    results.Add(email);
+                }
+            }
+
+            return results;
         }
 
         protected bool IsOutgoingEmail(IPersistentEmail email)

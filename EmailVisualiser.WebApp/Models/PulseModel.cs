@@ -52,8 +52,7 @@ namespace EmailVisualiser.WebApp.Models
         {
             get
             {
-                //unique addresses who have sent an outgoing email
-                return -1;
+                return this._data.OutgoingEmails.Select(e => e.Sender).Distinct().Count();
             }
         }
 
@@ -61,9 +60,7 @@ namespace EmailVisualiser.WebApp.Models
         {
             get
             {
-                //sender is Ramboll
-                //at least one recipient is not Ramboll
-                return -1;
+                return this._data.OutgoingEmails.Count();
             }
         }
 
@@ -71,8 +68,7 @@ namespace EmailVisualiser.WebApp.Models
         {
             get
             {
-                //unique addresses who are recipients to an outgoing email
-                return -1;
+                return this._data.OutgoingEmails.SelectMany(e => e.Recipients).Distinct().Count();
             }
         }
 
@@ -80,8 +76,7 @@ namespace EmailVisualiser.WebApp.Models
         {
             get
             {
-                //sender is not Ramboll
-                return -1;
+                return this._data.IncomingEmails.Count();
             }
         }
 
@@ -89,8 +84,7 @@ namespace EmailVisualiser.WebApp.Models
         {
             get
             {
-                //unique addresses of incoming emails
-                return -1;
+                return this._data.IncomingEmails.Select(e => e.Sender).Distinct().Count();
             }
         }
 
@@ -98,9 +92,7 @@ namespace EmailVisualiser.WebApp.Models
         {
             get
             {
-                //sender is Ramboll
-                //all recipients are Ramboll
-                return -1;
+                return this._data.InternalEmails.Count();
             }
         }
 
@@ -108,8 +100,7 @@ namespace EmailVisualiser.WebApp.Models
         {
             get
             {
-                //attachment to outgoing emails
-                return -1;
+                return this._data.OutgoingEmails.Sum(e => e.Attachments);
             }
         }
 
@@ -117,8 +108,7 @@ namespace EmailVisualiser.WebApp.Models
         {
             get
             {
-                //attached to incoming emails
-                return -1;
+                return this._data.IncomingEmails.Sum(e => e.Attachments);
             }
         }
     }

@@ -142,6 +142,8 @@ namespace OutlookParser
                 email.Recipients.Add(recipient.Address);
             }
 
+            email.Attachments = mailItem.Attachments.Count;
+
             return email;
         }
 

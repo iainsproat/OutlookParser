@@ -24,7 +24,8 @@ namespace EmailVisualiser.Models
                 .ForMember(dest => dest.ReceivedTime, opt => opt.MapFrom(src => src.ReceivedTime))
                 .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
                 .ForMember(dest => dest.Sender, opt => opt.MapFrom(src => src.Subject))
-                .ForMember(dest => dest.Recipients, opt => opt.MapFrom(src => src.Recipients));
+                .ForMember(dest => dest.Recipients, opt => opt.MapFrom(src => src.Recipients))
+                .ForMember(dest => dest.Attachments, opt => opt.MapFrom(src => src.Attachments));
         }
 
         public AddAdditionalDataModel(DataStorage storage)
