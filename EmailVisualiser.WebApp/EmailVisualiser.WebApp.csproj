@@ -43,12 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\RawModel.cs" />
     <Compile Include="Modules\GraphsModule.cs" />
     <Compile Include="Modules\DeleteModule.cs" />
     <Compile Include="Modules\FileUploadModule.cs" />
     <Compile Include="Models\FileUploadModel.cs" />
     <Compile Include="Models\PulseModel.cs" />
     <Compile Include="Modules\PulseModule.cs" />
+    <Compile Include="Modules\RawModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +72,9 @@
     <None Include="Views\delete.cshtml" />
     <None Include="Views\FileUpload.cshtml" />
     <None Include="Views\pulse.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\raw.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Views\Shared\_Layout.cshtml">
