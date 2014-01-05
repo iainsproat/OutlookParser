@@ -69,6 +69,13 @@
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\MainMenuController.cs" />
     <Compile Include="Data\DataStorage.cs" />
+    <Compile Include="Analysis\Graph\Edge.cs" />
+    <Compile Include="Analysis\Graph\Graph.cs" />
+    <Compile Include="Analysis\Graph\GraphBase.cs" />
+    <Compile Include="Analysis\Graph\IEdge.cs" />
+    <Compile Include="Analysis\Graph\IGraph.cs" />
+    <Compile Include="Analysis\Graph\UndirectedEdge.cs" />
+    <Compile Include="Analysis\Graph\WeightedGraph.cs" />
     <Compile Include="Data\IPersistentEmail.cs" />
     <Compile Include="Models\AddAdditionalDataModel.cs" />
     <Compile Include="Models\DataVisualisationModel.cs" />

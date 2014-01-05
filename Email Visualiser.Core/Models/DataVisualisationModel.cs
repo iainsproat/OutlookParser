@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using EmailVisualiser.Analysis;
+using EmailVisualiser.Analysis.Graph;
 
 namespace EmailVisualiser.Models
 {
@@ -37,6 +38,12 @@ namespace EmailVisualiser.Models
             var results = this._analysis.GetEmailDailyCountSortedByDate();
             this.RaiseEmailsGroupedCountedAndSortedByDate(results);
             return results;
+        }
+
+        public IGraph<string> WeightedGraphOfSendersAndRecipients()
+        {
+            return this._analysis.WeightedGraphOfSendersAndRecipients();
+            //TODO events etc.
         }
     }
 }

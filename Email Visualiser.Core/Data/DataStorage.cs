@@ -145,7 +145,7 @@ namespace EmailVisualiser.Data
             return IsInternalEmailAddress(email.Sender);
         }
 
-        protected bool IsInternalEmailAddress(string emailAddress)
+        public static bool IsInternalEmailAddress(string emailAddress)
         {
             if(emailAddress == null)
             {
